@@ -1,0 +1,2046 @@
+[
+  {
+    "country": "DE",
+    "product": "euro95",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 1152.523529411765,
+    "latest_tax_share": 0.5260262571482267,
+    "backtest": {
+      "naive": {
+        "mean_mae": 53.275878851540604,
+        "mean_rmse": 66.97223136444401,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 56.123564613889414,
+        "mean_rmse": 69.55998997359349,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 39.586969692272405,
+        "mean_rmse": 50.73337189509834,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "DE",
+    "product": "diesel",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 981.2252100840336,
+    "latest_tax_share": 0.4488678911637849,
+    "backtest": {
+      "naive": {
+        "mean_mae": 77.39031862745097,
+        "mean_rmse": 87.16325037030225,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 77.2678823800344,
+        "mean_rmse": 87.15997664490988,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 58.571855793202886,
+        "mean_rmse": 66.67656251449085,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 40.19143571964754,
+        "mean_rmse": 49.10270694600466,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "DE",
+    "product": "heating_oil",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 445.1941176470588,
+    "latest_tax_share": 0.3386536723315524,
+    "backtest": {
+      "naive": {
+        "mean_mae": 52.825975140056,
+        "mean_rmse": 62.19021127628375,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 51.500281422561415,
+        "mean_rmse": 61.070076469926505,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 40.516859601594994,
+        "mean_rmse": 47.418864362959184,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "DE",
+    "product": "fuel_oil_1",
+    "n_weeks": 246,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 25.0,
+    "latest_tax_share": 0.0719776581349149,
+    "backtest": {
+      "naive": {
+        "mean_mae": 32.408958333333324,
+        "mean_rmse": 35.89858388782044,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 31.20272720944757,
+        "mean_rmse": 35.53555142743656,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 33.77458308705776,
+        "mean_rmse": 38.108239278360934,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "DE",
+    "product": "lpg",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 495.4726890756302,
+    "latest_tax_share": 0.4534181551824573,
+    "backtest": {
+      "naive": {
+        "mean_mae": 12.96383928571429,
+        "mean_rmse": 15.47084438839526,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 15.422943098137889,
+        "mean_rmse": 17.875077059508527,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 15.394899340155789,
+        "mean_rmse": 17.907582446408842,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "FR",
+    "product": "euro95",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 1033.0566666666666,
+    "latest_tax_share": 0.5021810215477152,
+    "backtest": {
+      "naive": {
+        "mean_mae": 49.50906249999999,
+        "mean_rmse": 62.15563045220979,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 50.58803482810471,
+        "mean_rmse": 64.46232788036639,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 48.142225089450704,
+        "mean_rmse": 60.657972961292145,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "FR",
+    "product": "diesel",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 968.9083333333332,
+    "latest_tax_share": 0.4468206937366936,
+    "backtest": {
+      "naive": {
+        "mean_mae": 65.34423611111112,
+        "mean_rmse": 79.21235158972641,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 63.69187151217406,
+        "mean_rmse": 77.61017883282778,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 58.66520740404037,
+        "mean_rmse": 71.15952558985298,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 52.22269782732351,
+        "mean_rmse": 59.84349184111164,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "FR",
+    "product": "heating_oil",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 445.8533333333333,
+    "latest_tax_share": 0.2635503117143104,
+    "backtest": {
+      "naive": {
+        "mean_mae": 72.56899305555551,
+        "mean_rmse": 82.37883831084855,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 77.76418065199783,
+        "mean_rmse": 87.11724263939865,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 71.8075803045491,
+        "mean_rmse": 80.41945488832869,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 39.24373627348414,
+        "mean_rmse": 48.01520191578035,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "FR",
+    "product": "fuel_oil_1",
+    "n_weeks": 995,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 139.5,
+    "latest_tax_share": 0.1954055189802493,
+    "backtest": {
+      "naive": {
+        "mean_mae": 19.76791666666666,
+        "mean_rmse": 22.80892814848212,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 19.015055350085625,
+        "mean_rmse": 21.92508918410381,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 19.97406737998682,
+        "mean_rmse": 22.704634303527214,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "FR",
+    "product": "fuel_oil_2",
+    "n_weeks": 246,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 18.5,
+    "latest_tax_share": 0.0510358906452591,
+    "backtest": {
+      "naive": {
+        "mean_mae": 36.059791666666655,
+        "mean_rmse": 38.912759174624526,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 37.28239420972038,
+        "mean_rmse": 40.17770611130744,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 31.638098273783395,
+        "mean_rmse": 34.36625869012539,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "FR",
+    "product": "lpg",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 283.3833333333333,
+    "latest_tax_share": 0.2811621523299269,
+    "backtest": {
+      "naive": {
+        "mean_mae": 10.652708333333354,
+        "mean_rmse": 12.310377498681238,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 10.985394122383644,
+        "mean_rmse": 12.607907115030706,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 8.686586993501756,
+        "mean_rmse": 10.127798979903577,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "IT",
+    "product": "euro95",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 1026.4904918032787,
+    "latest_tax_share": 0.5235006231083316,
+    "backtest": {
+      "naive": {
+        "mean_mae": 44.13526980874316,
+        "mean_rmse": 53.58549386119074,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 66.64653108332053,
+        "mean_rmse": 75.14553134154423,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 65.09934815295586,
+        "mean_rmse": 72.81458346658509,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "IT",
+    "product": "diesel",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 1058.9152459016393,
+    "latest_tax_share": 0.4946745798674405,
+    "backtest": {
+      "naive": {
+        "mean_mae": 66.65047814207654,
+        "mean_rmse": 76.03193236713778,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 62.83787363926247,
+        "mean_rmse": 72.18971094595055,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 62.704573865548625,
+        "mean_rmse": 72.16758198323437,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 40.12372996416831,
+        "mean_rmse": 47.93847868561807,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "IT",
+    "product": "heating_oil",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 742.370655737705,
+    "latest_tax_share": 0.3947100466491413,
+    "backtest": {
+      "naive": {
+        "mean_mae": 62.829941939890695,
+        "mean_rmse": 73.97425998757862,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 65.86805468904001,
+        "mean_rmse": 76.74464029777779,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 57.62903760803653,
+        "mean_rmse": 67.35789650659504,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 32.54014581801867,
+        "mean_rmse": 40.45467066489357,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "IT",
+    "product": "fuel_oil_1",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 31.389999999999983,
+    "latest_tax_share": 0.0450358680057388,
+    "backtest": {
+      "naive": {
+        "mean_mae": 53.27062499999998,
+        "mean_rmse": 64.66237078603635,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 56.001013054901996,
+        "mean_rmse": 67.48148127398514,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 43.86915772505525,
+        "mean_rmse": 53.76892894676566,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "IT",
+    "product": "lpg",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 283.90081967213115,
+    "latest_tax_share": 0.3746975235879674,
+    "backtest": {
+      "naive": {
+        "mean_mae": 13.909301229508195,
+        "mean_rmse": 17.795984398816053,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 11.843707616190324,
+        "mean_rmse": 14.580921933718386,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 11.527966184416176,
+        "mean_rmse": 13.847243935044062,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "ES",
+    "product": "euro95",
+    "n_weeks": 1075,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 608.1002275041321,
+    "latest_tax_share": 0.3697767137953381,
+    "backtest": {
+      "naive": {
+        "mean_mae": 44.547675044926116,
+        "mean_rmse": 57.03733542719952,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 48.84679348939239,
+        "mean_rmse": 63.045932055425986,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 47.596062608694844,
+        "mean_rmse": 61.70325868774019,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "ES",
+    "product": "diesel",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 527.9059665041325,
+    "latest_tax_share": 0.306517948879792,
+    "backtest": {
+      "naive": {
+        "mean_mae": 57.04590871365885,
+        "mean_rmse": 68.13733664746847,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 61.53507853576374,
+        "mean_rmse": 72.63953216749366,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 61.794192389472215,
+        "mean_rmse": 73.10418238694025,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 32.5840234223184,
+        "mean_rmse": 39.05778740601211,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "ES",
+    "product": "heating_oil",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 261.1892975206612,
+    "latest_tax_share": 0.2048744367256877,
+    "backtest": {
+      "naive": {
+        "mean_mae": 76.5674227623019,
+        "mean_rmse": 87.20658310830989,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 78.93338684267331,
+        "mean_rmse": 89.83888984414884,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 75.72930624830465,
+        "mean_rmse": 86.12373804051887,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 29.00997712868505,
+        "mean_rmse": 33.80978807864717,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "ES",
+    "product": "fuel_oil_1",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 15.5,
+    "latest_tax_share": 0.0234561324923427,
+    "backtest": {
+      "naive": {
+        "mean_mae": 35.099124999999994,
+        "mean_rmse": 45.45825146000521,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 34.19648517417913,
+        "mean_rmse": 44.326243652219524,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 29.848660997320025,
+        "mean_rmse": 39.156538913887914,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "ES",
+    "product": "lpg",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 216.7943020495868,
+    "latest_tax_share": 0.2060547710652761,
+    "backtest": {
+      "naive": {
+        "mean_mae": 15.600453841937462,
+        "mean_rmse": 22.774616520726987,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 21.742982255231244,
+        "mean_rmse": 28.689668763372488,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 19.952110557940166,
+        "mean_rmse": 25.93236082173442,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "NL",
+    "product": "euro95",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 1261.936033057851,
+    "latest_tax_share": 0.5291003299949902,
+    "backtest": {
+      "naive": {
+        "mean_mae": 53.849189049586755,
+        "mean_rmse": 68.3432073484201,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 59.882146220266364,
+        "mean_rmse": 74.09635206850581,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 44.87984089497014,
+        "mean_rmse": 56.40212201898376,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "NL",
+    "product": "diesel",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 973.2671900826448,
+    "latest_tax_share": 0.4067601401255656,
+    "backtest": {
+      "naive": {
+        "mean_mae": 67.93785468319557,
+        "mean_rmse": 79.27043972841108,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 70.04417730478849,
+        "mean_rmse": 81.77338576262093,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 57.537727054310956,
+        "mean_rmse": 66.93061022523523,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 38.97966709217596,
+        "mean_rmse": 45.26495126701639,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "NL",
+    "product": "heating_oil",
+    "n_weeks": 899,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 0.0,
+    "latest_tax_share": 0.0,
+    "backtest": {
+      "naive": {
+        "mean_mae": 111.57499999999999,
+        "mean_rmse": 154.38298940564755,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 111.46728541540173,
+        "mean_rmse": 154.26840842889408,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 108.12982469010123,
+        "mean_rmse": 150.18377714082555,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "NL",
+    "product": "fuel_oil_1",
+    "n_weeks": 899,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 0.0,
+    "latest_tax_share": 0.0,
+    "backtest": {
+      "naive": {
+        "mean_mae": 32.05749999999998,
+        "mean_rmse": 39.20721307093941,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 31.469580449611275,
+        "mean_rmse": 38.051923366153304,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 31.02193960418171,
+        "mean_rmse": 37.29041317864764,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "NL",
+    "product": "lpg",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 365.8594214876033,
+    "latest_tax_share": 0.3930211104293776,
+    "backtest": {
+      "naive": {
+        "mean_mae": 28.894748622589546,
+        "mean_rmse": 33.97043658871646,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 28.97813177968993,
+        "mean_rmse": 34.1234170842077,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 23.56158389534474,
+        "mean_rmse": 27.851446400662187,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "BE",
+    "product": "euro95",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 927.8940719008264,
+    "latest_tax_share": 0.4913704190368604,
+    "backtest": {
+      "naive": {
+        "mean_mae": 69.89021866391182,
+        "mean_rmse": 87.75150777968383,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 67.58840646090601,
+        "mean_rmse": 85.71978769219442,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 44.35574685864565,
+        "mean_rmse": 58.21475539401076,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "BE",
+    "product": "diesel",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 971.712814876033,
+    "latest_tax_share": 0.4538890048279817,
+    "backtest": {
+      "naive": {
+        "mean_mae": 69.91489841597796,
+        "mean_rmse": 85.00364893650244,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 69.14975448644495,
+        "mean_rmse": 84.26103858737163,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 47.9396776727628,
+        "mean_rmse": 60.132368537212315,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 38.08691841169895,
+        "mean_rmse": 45.44125871544432,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "BE",
+    "product": "heating_oil",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 253.948961983471,
+    "latest_tax_share": 0.1862068939606034,
+    "backtest": {
+      "naive": {
+        "mean_mae": 79.92696280991734,
+        "mean_rmse": 92.7601223945544,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 78.80535770005406,
+        "mean_rmse": 91.673097133395,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 66.75317604881208,
+        "mean_rmse": 77.33688070400135,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 36.12076631405831,
+        "mean_rmse": 42.65167350097397,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "BE",
+    "product": "fuel_oil_1",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 16.350000000000023,
+    "latest_tax_share": 0.029095632985728,
+    "backtest": {
+      "naive": {
+        "mean_mae": 46.021875,
+        "mean_rmse": 57.47531788869251,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 45.70569500685155,
+        "mean_rmse": 57.11481946578889,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 40.33630771883109,
+        "mean_rmse": 50.65884395812903,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "BE",
+    "product": "lpg",
+    "n_weeks": 1076,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 141.61983471074382,
+    "latest_tax_share": 0.1735537190082644,
+    "backtest": {
+      "naive": {
+        "mean_mae": 49.55370695592288,
+        "mean_rmse": 57.33346873324845,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 50.131320978018664,
+        "mean_rmse": 57.87939674801305,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 44.09265390970614,
+        "mean_rmse": 51.027045728232764,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PL",
+    "product": "euro95",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 742.4097710112217,
+    "latest_tax_share": 0.4318394353175124,
+    "backtest": {
+      "naive": {
+        "mean_mae": 59.430379735001864,
+        "mean_rmse": 75.61386899711115,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 76.12380034358915,
+        "mean_rmse": 92.14058991768216,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 72.16053455464495,
+        "mean_rmse": 86.63145528070305,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PL",
+    "product": "diesel",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 731.7397616319329,
+    "latest_tax_share": 0.4025546333631296,
+    "backtest": {
+      "naive": {
+        "mean_mae": 79.79916622380792,
+        "mean_rmse": 93.95678667827323,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 85.01700270952598,
+        "mean_rmse": 99.13644413866092,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 84.39140344800852,
+        "mean_rmse": 97.63967055564444,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 55.05145811303329,
+        "mean_rmse": 66.56635570336122,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PL",
+    "product": "heating_oil",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 326.21801594003,
+    "latest_tax_share": 0.2238214721351948,
+    "backtest": {
+      "naive": {
+        "mean_mae": 75.00557013258515,
+        "mean_rmse": 85.70643433684073,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 72.33513734526466,
+        "mean_rmse": 82.5796443683522,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 65.77911559956513,
+        "mean_rmse": 74.44315085219853,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 37.65255549384758,
+        "mean_rmse": 47.05358881657777,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PL",
+    "product": "fuel_oil_1",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 15.964831096714532,
+    "latest_tax_share": 0.021746307963369,
+    "backtest": {
+      "naive": {
+        "mean_mae": 58.602840142443235,
+        "mean_rmse": 69.94832786804366,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 55.95611630551109,
+        "mean_rmse": 67.73814613650231,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 43.38415856243812,
+        "mean_rmse": 53.66474181431387,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PL",
+    "product": "fuel_oil_2",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 15.964831096714532,
+    "latest_tax_share": 0.0268066961465572,
+    "backtest": {
+      "naive": {
+        "mean_mae": 40.14534077818616,
+        "mean_rmse": 49.47992725545667,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 44.652945648344016,
+        "mean_rmse": 53.53545240070507,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 35.72073424853187,
+        "mean_rmse": 43.39109493845376,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PL",
+    "product": "lpg",
+    "n_weeks": 1077,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 247.6292564254608,
+    "latest_tax_share": 0.3479678579226433,
+    "backtest": {
+      "naive": {
+        "mean_mae": 41.553322650693445,
+        "mean_rmse": 49.342732731215264,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 36.69772782447456,
+        "mean_rmse": 44.42362276070507,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 30.635194857277014,
+        "mean_rmse": 37.41021312133742,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "AT",
+    "product": "euro95",
+    "n_weeks": 1075,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 918.6,
+    "latest_tax_share": 0.4901814300960512,
+    "backtest": {
+      "naive": {
+        "mean_mae": 45.08645833333333,
+        "mean_rmse": 56.07878291089767,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 49.655062354208916,
+        "mean_rmse": 62.36246672371159,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 46.08106423968423,
+        "mean_rmse": 57.77307370341235,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "AT",
+    "product": "diesel",
+    "n_weeks": 1075,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 876.69,
+    "latest_tax_share": 0.4274451487079473,
+    "backtest": {
+      "naive": {
+        "mean_mae": 58.78020833333331,
+        "mean_rmse": 68.11481041396895,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 61.00488462800476,
+        "mean_rmse": 70.82161065395458,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 56.89891890733846,
+        "mean_rmse": 65.68638224701996,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 32.85784676218757,
+        "mean_rmse": 39.61132984289999,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "AT",
+    "product": "heating_oil",
+    "n_weeks": 1075,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 521.3600000000001,
+    "latest_tax_share": 0.3270806409114293,
+    "backtest": {
+      "naive": {
+        "mean_mae": 72.66354166666669,
+        "mean_rmse": 80.9865868043813,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 74.26829252385156,
+        "mean_rmse": 82.42781032538453,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 63.37669631837474,
+        "mean_rmse": 70.26446680019856,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 40.01880340221341,
+        "mean_rmse": 48.9760551584539,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "AT",
+    "product": "fuel_oil_1",
+    "n_weeks": 993,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 217.19000000000003,
+    "latest_tax_share": 0.2811521035598706,
+    "backtest": {
+      "naive": {
+        "mean_mae": 17.854166666666668,
+        "mean_rmse": 21.817439136347794,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 16.562463522302522,
+        "mean_rmse": 20.297178156957134,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 15.98631871429875,
+        "mean_rmse": 19.489738989774487,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "CZ",
+    "product": "euro95",
+    "n_weeks": 1076,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 834.60297323595,
+    "latest_tax_share": 0.4779561750903868,
+    "backtest": {
+      "naive": {
+        "mean_mae": 40.00586497165749,
+        "mean_rmse": 52.69301675648608,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 48.933543726862396,
+        "mean_rmse": 62.601060121550645,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 41.87675733935177,
+        "mean_rmse": 54.89665860289212,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "CZ",
+    "product": "diesel",
+    "n_weeks": 1076,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 726.8115376772741,
+    "latest_tax_share": 0.4005671801079679,
+    "backtest": {
+      "naive": {
+        "mean_mae": 62.97839936075923,
+        "mean_rmse": 76.43995757052208,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 73.72812788259492,
+        "mean_rmse": 86.55218991205982,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 64.40172923926133,
+        "mean_rmse": 74.3898266865215,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 36.04886119526117,
+        "mean_rmse": 41.20598286330027,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "CZ",
+    "product": "heating_oil",
+    "n_weeks": 1076,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 325.8107802041551,
+    "latest_tax_share": 0.2440020215970103,
+    "backtest": {
+      "naive": {
+        "mean_mae": 65.79305231014736,
+        "mean_rmse": 80.34820240086984,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 60.59750335042027,
+        "mean_rmse": 75.80935073979418,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 55.334812601678706,
+        "mean_rmse": 68.2622734165597,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 37.76518842820104,
+        "mean_rmse": 45.90668664262985,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "CZ",
+    "product": "fuel_oil_1",
+    "n_weeks": 739,
+    "is_eurozone": false,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 18.53000000000003,
+    "latest_tax_share": 0.0545449193453433,
+    "backtest": {
+      "naive": {
+        "mean_mae": 14.325624999999999,
+        "mean_rmse": 16.84722874572548,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 11.910479631229025,
+        "mean_rmse": 14.40307609107251,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 14.310251780961284,
+        "mean_rmse": 16.527550487413027,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "CZ",
+    "product": "fuel_oil_2",
+    "n_weeks": 193,
+    "is_eurozone": false,
+    "sarimax_order": [
+      0,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 18.600000000000023,
+    "latest_tax_share": 0.0604425957820167,
+    "backtest": {
+      "naive": {
+        "mean_mae": 14.249791666666667,
+        "mean_rmse": 17.001824515780623,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 14.52594987622297,
+        "mean_rmse": 17.255571906132758,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 10.742673545538898,
+        "mean_rmse": 13.114678309974636,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "CZ",
+    "product": "lpg",
+    "n_weeks": 1076,
+    "is_eurozone": false,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos",
+      "fx_rate"
+    ],
+    "latest_tax_amount": 247.9133565707201,
+    "latest_tax_share": 0.2714684968867776,
+    "backtest": {
+      "naive": {
+        "mean_mae": 21.954282322129288,
+        "mean_rmse": 26.147065254341996,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 24.147711349065034,
+        "mean_rmse": 28.407896689545083,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 15.131066318710776,
+        "mean_rmse": 17.34216561422662,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PT",
+    "product": "euro95",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 973.7416031252112,
+    "latest_tax_share": 0.4893173885051313,
+    "backtest": {
+      "naive": {
+        "mean_mae": 51.934988143631436,
+        "mean_rmse": 65.58153276497139,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 59.88835141666921,
+        "mean_rmse": 74.7165006845751,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 55.31135393347118,
+        "mean_rmse": 69.50273312216444,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PT",
+    "product": "diesel",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 838.5361003662847,
+    "latest_tax_share": 0.4138875125203774,
+    "backtest": {
+      "naive": {
+        "mean_mae": 64.70292852303521,
+        "mean_rmse": 75.95007310006497,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 71.89470224326882,
+        "mean_rmse": 82.65365724477573,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 67.90809975095604,
+        "mean_rmse": 78.28653664606092,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 32.05707429032981,
+        "mean_rmse": 40.51864078042279,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PT",
+    "product": "heating_oil",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 883.1210597158779,
+    "latest_tax_share": 0.4348208073441053,
+    "backtest": {
+      "naive": {
+        "mean_mae": 70.88637872628723,
+        "mean_rmse": 83.2339207817906,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 77.30992642746583,
+        "mean_rmse": 89.83075214083551,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 77.72500706155876,
+        "mean_rmse": 90.30489414248574,
+        "n_folds": 4
+      },
+      "gbm": {
+        "mean_mae": 37.05290914515594,
+        "mean_rmse": 43.52601500643342,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "gbm",
+    "model_switch_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PT",
+    "product": "fuel_oil_1",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 232.49538800000005,
+    "latest_tax_share": 0.2240833008847852,
+    "backtest": {
+      "naive": {
+        "mean_mae": 60.12395833333332,
+        "mean_rmse": 69.68094924095526,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 67.37654220630029,
+        "mean_rmse": 76.8169291769673,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 62.67500164711183,
+        "mean_rmse": 71.16341659049482,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  },
+  {
+    "country": "PT",
+    "product": "lpg",
+    "n_weeks": 1077,
+    "is_eurozone": true,
+    "sarimax_order": [
+      1,
+      1,
+      1
+    ],
+    "exog_names": [
+      "brent",
+      "month_sin",
+      "month_cos"
+    ],
+    "latest_tax_amount": 339.34748865015445,
+    "latest_tax_share": 0.3787360364399045,
+    "backtest": {
+      "naive": {
+        "mean_mae": 20.363045392953936,
+        "mean_rmse": 22.99754797569846,
+        "n_folds": 4
+      },
+      "arima_noexog": {
+        "mean_mae": 27.03385578656335,
+        "mean_rmse": 30.08279922250105,
+        "n_folds": 4
+      },
+      "sarimax_exog": {
+        "mean_mae": 24.87024478308133,
+        "mean_rmse": 27.836110548191876,
+        "n_folds": 4
+      }
+    },
+    "n_backtest_origins": 4,
+    "model_used": "sarimax"
+  }
+]

@@ -1,0 +1,110 @@
+[
+  {
+    "country": "DE",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "FR",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "FR",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "IT",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "IT",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "ES",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "ES",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "NL",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "BE",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "BE",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PL",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PL",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "AT",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "AT",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "CZ",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "CZ",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PT",
+    "product": "diesel",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  },
+  {
+    "country": "PT",
+    "product": "heating_oil",
+    "model_used": "LightGBM (direct multi-horizon)",
+    "model_reason": "Section 8 of the Model Comparison Report: GBM beat SARIMAX by 30-46% MAE for this product across all 10 countries."
+  }
+]
