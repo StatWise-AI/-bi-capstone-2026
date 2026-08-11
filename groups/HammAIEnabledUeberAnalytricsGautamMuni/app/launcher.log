@@ -1,0 +1,18 @@
+2026-07-13 23:48:58 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-13 23:48:58 [INFO] Flask process started (PID 32116) using C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard\venv\Scripts\python.exe. Waiting for it to respond...
+2026-07-13 23:49:00 [INFO] Flask is reachable at http://127.0.0.1:5000/ -- opening browser.
+2026-07-13 23:49:00 [INFO] Launcher exiting; dashboard continues running in the background.
+2026-07-13 23:49:24 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-13 23:49:25 [INFO] Flask already reachable at http://127.0.0.1:5000/ -- opening browser only.
+2026-07-13 23:49:43 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-13 23:49:43 [INFO] Flask already reachable at http://127.0.0.1:5000/ -- opening browser only.
+2026-07-13 23:49:56 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-13 23:49:56 [INFO] Flask already reachable at http://127.0.0.1:5000/ -- opening browser only.
+2026-07-13 23:52:04 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-13 23:52:04 [INFO] Flask process started (PID 3508) using C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard\venv\Scripts\python.exe. Waiting for it to respond...
+2026-07-13 23:52:10 [INFO] Flask is reachable at http://127.0.0.1:5000/ -- opening browser.
+2026-07-13 23:52:10 [INFO] Launcher exiting; dashboard continues running in the background.
+2026-07-14 00:13:59 [INFO] Launcher started. BASE_DIR=C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard
+2026-07-14 00:13:59 [INFO] Flask process started (PID 4428) using C:\Users\mehta\Downloads\uber_executive_dashboard_with Launcher\uber_executive_dashboard\venv\Scripts\python.exe. Waiting for it to respond...
+2026-07-14 00:14:05 [INFO] Flask is reachable at http://127.0.0.1:5000/ -- app.py will open the browser itself. Launcher will not open a second tab.
+2026-07-14 00:14:05 [INFO] Launcher exiting; dashboard continues running in the background.

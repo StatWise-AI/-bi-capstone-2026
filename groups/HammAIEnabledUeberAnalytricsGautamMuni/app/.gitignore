@@ -1,0 +1,12 @@
+# Never commit real secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+
+# Runtime data cache and raw dataset (user-supplied, not part of source control)
+data/processed/*.pkl
+data/processed/*.csv
+

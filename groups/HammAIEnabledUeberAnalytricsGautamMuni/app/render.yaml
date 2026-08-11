@@ -1,0 +1,65 @@
+# ==============================================================================
+# render.yaml
+# ==============================================================================
+# Render "Blueprint" spec for this project. Commit this file at the repo
+# root and use Render's "New +" -> "Blueprint" flow to create the service
+# automatically from it, or use the manual "New +" -> "Web Service" flow
+# and just copy these same settings into the dashboard by hand (see
+# README_DEPLOY.md for both paths).
+#
+# Nothing about the dashboard, Gemini prompts, business logic, data
+# calculations, templates, or charts is touched by this file - it only
+# describes how Render should build and run the existing app.
+# ==============================================================================
+
+services:
+  - type: web
+    name: uber-executive-dashboard
+    runtime: python
+    plan: starter          # change to "free" for Render's free tier, if available on your account
+    region: oregon          # pick the region closest to your users
+    branch: main             # change to whatever branch you deploy from
+
+    # Render sets PYTHON_VERSION automatically from a runtime.txt if present;
+    # pinning it here too keeps the build reproducible without needing that
+    # extra file.
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+      # --- Secrets: set the REAL value in the Render dashboard, not here ---
+      # Render deliberately does not let you commit real secret values in
+      # render.yaml when sync: false is set - it will prompt you to type
+      # the value into the dashboard instead. This is how GEMINI_API_KEY
+      # stays out of source control entirely.
+      - key: GEMINI_API_KEY
+        sync: false
+
+      # Optional overrides - safe to omit and let config.py's defaults apply
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: GEMINI_TIMEOUT_SECONDS
+        value: "15"
+
+      # Flask
+      - key: FLASK_DEBUG
+        value: "0"          # never run with the debugger/reloader in production
+      - key: SECRET_KEY
+        generateValue: true  # Render generates a random, unique value for you
+      - key: LOG_LEVEL
+        value: INFO
+
+    buildCommand: pip install -r requirements.txt
+
+    # --workers 1: the dataset is loaded into memory once per worker process
+    # (see backend/data_cache.py). Running a single worker avoids holding
+    # multiple full copies of the dataset in RAM on memory-constrained
+    # plans. --threads 4 lets that one worker still handle several
+    # concurrent requests (the app is I/O-bound: pandas lookups + the
+    # occasional Gemini API call). Increase --workers only if you've
+    # verified your Render plan has the RAM to spare - see README_DEPLOY.md.
+    startCommand: gunicorn wsgi:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120 --log-file -
+
+    healthCheckPath: /
+
+    autoDeploy: true

@@ -1,0 +1,67 @@
+
+--- Flask start at 2026-07-13 23:48:58 ---
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:49:00,536 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:49:00,537 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:49:00,906 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:00] "GET / HTTP/1.1" 200 -
+2026-07-13 23:49:01,255 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "GET /static/js/navigation.js?v=1783979340 HTTP/1.1" 200 -
+2026-07-13 23:49:01,269 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "GET /static/css/layout.css?v=1783979340 HTTP/1.1" 200 -
+2026-07-13 23:49:01,272 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "GET /static/css/theme.css?v=1783979340 HTTP/1.1" 200 -
+2026-07-13 23:49:01,791 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "GET / HTTP/1.1" 200 -
+2026-07-13 23:49:01,853 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "[36mGET /static/css/layout.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:01,857 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "[36mGET /static/css/theme.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:01,860 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:01] "[36mGET /static/js/navigation.js?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:25,272 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:25] "GET / HTTP/1.1" 200 -
+2026-07-13 23:49:25,333 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:25] "[36mGET /static/css/layout.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:25,341 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:25] "[36mGET /static/css/theme.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:25,343 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:25] "[36mGET /static/js/navigation.js?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:43,469 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:43] "GET / HTTP/1.1" 200 -
+2026-07-13 23:49:43,526 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:43] "[36mGET /static/css/layout.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:43,527 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:43] "[36mGET /static/css/theme.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:43,533 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:43] "[36mGET /static/js/navigation.js?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:56,748 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:56] "GET / HTTP/1.1" 200 -
+2026-07-13 23:49:56,803 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:56] "[36mGET /static/css/layout.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:56,805 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:56] "[36mGET /static/css/theme.css?v=1783979340 HTTP/1.1[0m" 304 -
+2026-07-13 23:49:56,811 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:49:56] "[36mGET /static/js/navigation.js?v=1783979340 HTTP/1.1[0m" 304 -
+
+--- Flask start at 2026-07-13 23:52:04 ---
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:52:09,717 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:52:09,717 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:52:10,490 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "GET / HTTP/1.1" 200 -
+2026-07-13 23:52:10,663 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "GET /static/js/navigation.js?v=1783979529 HTTP/1.1" 200 -
+2026-07-13 23:52:10,681 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "GET /static/css/layout.css?v=1783979529 HTTP/1.1" 200 -
+2026-07-13 23:52:10,681 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "GET /static/css/theme.css?v=1783979529 HTTP/1.1" 200 -
+2026-07-13 23:52:10,838 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "GET / HTTP/1.1" 200 -
+2026-07-13 23:52:10,873 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "[36mGET /static/css/layout.css?v=1783979529 HTTP/1.1[0m" 304 -
+2026-07-13 23:52:10,876 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "[36mGET /static/css/theme.css?v=1783979529 HTTP/1.1[0m" 304 -
+2026-07-13 23:52:10,886 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:10] "[36mGET /static/js/navigation.js?v=1783979529 HTTP/1.1[0m" 304 -
+2026-07-13 23:52:11,128 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:52:11] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+
+--- Flask start at 2026-07-14 00:13:59 ---
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-14 00:14:04,606 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-14 00:14:04,606 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-14 00:14:05,938 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:05] "GET / HTTP/1.1" 200 -
+2026-07-14 00:14:06,265 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:06] "GET /static/css/theme.css?v=1783980843 HTTP/1.1" 200 -
+2026-07-14 00:14:06,295 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:06] "GET /static/css/layout.css?v=1783980843 HTTP/1.1" 200 -
+2026-07-14 00:14:06,299 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:06] "GET /static/js/navigation.js?v=1783980843 HTTP/1.1" 200 -
+2026-07-14 00:14:06,714 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:06] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2026-07-14 00:14:10,843 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:10] "GET /ai-insights/ HTTP/1.1" 200 -
+2026-07-14 00:14:10,914 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:10] "[36mGET /static/css/theme.css?v=1783980843 HTTP/1.1[0m" 304 -
+2026-07-14 00:14:10,923 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:10] "[36mGET /static/css/layout.css?v=1783980843 HTTP/1.1[0m" 304 -
+2026-07-14 00:14:10,925 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:10] "[36mGET /static/js/navigation.js?v=1783980843 HTTP/1.1[0m" 304 -
+2026-07-14 00:14:10,987 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:10] "GET /static/js/ai_chat.js?v=1783980843 HTTP/1.1" 200 -
+2026-07-14 00:14:14,974 [INFO] routes.ai_insights: AI Assistant request | mode=Question | question_chars=53
+2026-07-14 00:14:19,228 [INFO] ai.gemini_service: Gemini client initialized (model=gemini-2.5-flash, timeout=15s)
+2026-07-14 00:14:19,228 [INFO] ai.gemini_service: Sending request to Gemini | model=gemini-2.5-flash | prompt_chars=2799 | timeout=15s
+2026-07-14 00:14:19,228 [INFO] google_genai.models: AFC is enabled with max remote calls: 10.
+2026-07-14 00:14:20,710 [INFO] httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-07-14 00:14:20,712 [INFO] ai.gemini_service: Gemini request SUCCEEDED | model=gemini-2.5-flash | response_chars=256
+2026-07-14 00:14:20,713 [INFO] werkzeug: 127.0.0.1 - - [14/Jul/2026 00:14:20] "POST /ai-insights/api/ask HTTP/1.1" 200 -

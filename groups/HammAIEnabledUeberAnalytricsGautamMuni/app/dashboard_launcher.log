@@ -1,0 +1,118 @@
+
+--- Launch at 2026-07-13 23:00:18 ---
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:00:20,738 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:00:20,739 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:00:21,166 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:21] "GET / HTTP/1.1" 200 -
+2026-07-13 23:00:21,518 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:21] "GET /static/js/navigation.js?v=1783976420 HTTP/1.1" 200 -
+2026-07-13 23:00:21,527 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:21] "GET /static/css/theme.css?v=1783976420 HTTP/1.1" 200 -
+2026-07-13 23:00:21,530 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:21] "GET /static/css/layout.css?v=1783976420 HTTP/1.1" 200 -
+2026-07-13 23:00:21,960 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:21] "GET / HTTP/1.1" 200 -
+2026-07-13 23:00:22,020 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:22] "[36mGET /static/css/theme.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:22,022 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:22] "[36mGET /static/css/layout.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:22,039 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:22] "[36mGET /static/js/navigation.js?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:29,879 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:29] "GET / HTTP/1.1" 200 -
+2026-07-13 23:00:29,932 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:29] "[36mGET /static/css/layout.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:29,934 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:29] "[36mGET /static/css/theme.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:29,941 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:29] "[36mGET /static/js/navigation.js?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:35,538 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:35] "GET / HTTP/1.1" 200 -
+2026-07-13 23:00:35,600 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:35] "[36mGET /static/css/layout.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:35,603 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:35] "[36mGET /static/css/theme.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:35,611 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:35] "[36mGET /static/js/navigation.js?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:39,449 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:39] "GET /ai-insights/ HTTP/1.1" 200 -
+2026-07-13 23:00:39,493 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:39] "[36mGET /static/css/layout.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:39,496 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:39] "[36mGET /static/css/theme.css?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:39,499 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:39] "[36mGET /static/js/navigation.js?v=1783976420 HTTP/1.1[0m" 304 -
+2026-07-13 23:00:39,502 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:39] "GET /static/js/ai_chat.js?v=1783976420 HTTP/1.1" 200 -
+2026-07-13 23:00:41,853 [INFO] routes.ai_insights: AI Assistant request | mode=Question | question_chars=53
+2026-07-13 23:00:45,351 [INFO] ai.gemini_service: Gemini client initialized (model=gemini-2.5-flash, timeout=15s)
+2026-07-13 23:00:45,351 [INFO] ai.gemini_service: Sending request to Gemini | model=gemini-2.5-flash | prompt_chars=2799 | timeout=15s
+2026-07-13 23:00:45,351 [INFO] google_genai.models: AFC is enabled with max remote calls: 10.
+2026-07-13 23:00:46,901 [INFO] httpx: HTTP Request: POST https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent "HTTP/1.1 200 OK"
+2026-07-13 23:00:46,903 [INFO] ai.gemini_service: Gemini request SUCCEEDED | model=gemini-2.5-flash | response_chars=73
+2026-07-13 23:00:46,903 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:00:46] "POST /ai-insights/api/ask HTTP/1.1" 200 -
+
+--- Launch at 2026-07-13 23:02:09 ---
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:02:11,093 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:02:11,093 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:02:11,474 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:11] "GET / HTTP/1.1" 200 -
+2026-07-13 23:02:11,764 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:11] "GET /static/css/layout.css?v=1783976530 HTTP/1.1" 200 -
+2026-07-13 23:02:11,770 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:11] "GET /static/js/navigation.js?v=1783976530 HTTP/1.1" 200 -
+2026-07-13 23:02:11,772 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:11] "GET /static/css/theme.css?v=1783976530 HTTP/1.1" 200 -
+2026-07-13 23:02:12,311 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:12] "GET / HTTP/1.1" 200 -
+2026-07-13 23:02:12,592 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:12] "[36mGET /static/css/layout.css?v=1783976530 HTTP/1.1[0m" 304 -
+2026-07-13 23:02:12,594 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:12] "[36mGET /static/css/theme.css?v=1783976530 HTTP/1.1[0m" 304 -
+2026-07-13 23:02:12,598 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:02:12] "[36mGET /static/js/navigation.js?v=1783976530 HTTP/1.1[0m" 304 -
+
+--- Launch at 2026-07-13 23:30:25 ---
+Interpreter: C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\venv\Scripts\python.exe
+App entry:   C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\app.py
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:30:26,917 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:30:26,917 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:30:28,199 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:28] "GET / HTTP/1.1" 200 -
+2026-07-13 23:30:28,565 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:28] "GET /static/css/theme.css?v=1783978226 HTTP/1.1" 200 -
+2026-07-13 23:30:28,576 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:28] "GET /static/css/layout.css?v=1783978226 HTTP/1.1" 200 -
+2026-07-13 23:30:28,578 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:28] "GET /static/js/navigation.js?v=1783978226 HTTP/1.1" 200 -
+2026-07-13 23:30:39,215 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:39] "GET / HTTP/1.1" 200 -
+2026-07-13 23:30:39,270 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:39] "[36mGET /static/css/layout.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:30:39,273 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:39] "[36mGET /static/css/theme.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:30:39,278 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:39] "[36mGET /static/js/navigation.js?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:30:56,355 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:56] "GET / HTTP/1.1" 200 -
+2026-07-13 23:30:56,400 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:56] "[36mGET /static/css/layout.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:30:56,401 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:56] "[36mGET /static/css/theme.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:30:56,410 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:30:56] "[36mGET /static/js/navigation.js?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:31:11,327 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:31:11] "GET / HTTP/1.1" 200 -
+2026-07-13 23:31:11,388 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:31:11] "[36mGET /static/css/layout.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:31:11,390 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:31:11] "[36mGET /static/css/theme.css?v=1783978226 HTTP/1.1[0m" 304 -
+2026-07-13 23:31:11,399 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:31:11] "[36mGET /static/js/navigation.js?v=1783978226 HTTP/1.1[0m" 304 -
+
+--- Launch at 2026-07-13 23:32:00 ---
+Interpreter: C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\venv\Scripts\python.exe
+App entry:   C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\app.py
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:32:03,030 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:32:03,030 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:32:04,326 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:32:04] "GET / HTTP/1.1" 200 -
+2026-07-13 23:32:04,706 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:32:04] "GET /static/css/layout.css?v=1783978322 HTTP/1.1" 200 -
+2026-07-13 23:32:04,722 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:32:04] "GET /static/css/theme.css?v=1783978322 HTTP/1.1" 200 -
+2026-07-13 23:32:04,732 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:32:04] "GET /static/js/navigation.js?v=1783978322 HTTP/1.1" 200 -
+
+--- Launch at 2026-07-13 23:33:50 ---
+Interpreter: C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\venv\Scripts\python.exe
+App entry:   C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\app.py
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:33:52,229 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:33:52,229 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:33:53,498 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:33:53] "GET / HTTP/1.1" 200 -
+2026-07-13 23:33:53,851 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:33:53] "GET /static/css/theme.css?v=1783978431 HTTP/1.1" 200 -
+2026-07-13 23:33:53,857 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:33:53] "GET /static/css/layout.css?v=1783978431 HTTP/1.1" 200 -
+2026-07-13 23:33:53,864 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:33:53] "GET /static/js/navigation.js?v=1783978431 HTTP/1.1" 200 -
+2026-07-13 23:34:02,942 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:34:02] "GET / HTTP/1.1" 200 -
+2026-07-13 23:34:03,004 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:34:03] "[36mGET /static/css/layout.css?v=1783978431 HTTP/1.1[0m" 304 -
+2026-07-13 23:34:03,006 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:34:03] "[36mGET /static/css/theme.css?v=1783978431 HTTP/1.1[0m" 304 -
+2026-07-13 23:34:03,016 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:34:03] "[36mGET /static/js/navigation.js?v=1783978431 HTTP/1.1[0m" 304 -
+
+--- Launch at 2026-07-13 23:35:27 ---
+Interpreter: C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\venv\Scripts\python.exe
+App entry:   C:\Users\mehta\Downloads\uber_executive_dashboard_Final\uber_executive_dashboard\app.py
+ * Serving Flask app 'app'
+ * Debug mode: on
+2026-07-13 23:35:28,931 [INFO] werkzeug: [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2026-07-13 23:35:28,931 [INFO] werkzeug: [33mPress CTRL+C to quit[0m
+2026-07-13 23:35:30,208 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:35:30] "GET / HTTP/1.1" 200 -
+2026-07-13 23:35:30,567 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:35:30] "GET /static/css/layout.css?v=1783978528 HTTP/1.1" 200 -
+2026-07-13 23:35:30,595 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:35:30] "GET /static/css/theme.css?v=1783978528 HTTP/1.1" 200 -
+2026-07-13 23:35:30,604 [INFO] werkzeug: 127.0.0.1 - - [13/Jul/2026 23:35:30] "GET /static/js/navigation.js?v=1783978528 HTTP/1.1" 200 -
