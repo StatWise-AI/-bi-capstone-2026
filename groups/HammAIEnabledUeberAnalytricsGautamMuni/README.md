@@ -1,4 +1,4 @@
-AI-Enabled Uber India Operations Analytics Dashboard Using Power BI
+#AI-Enabled Uber India Operations Analytics Dashboard Using Power BI
 Project Overview
 The objective of this project is to develop an interactive Business Intelligence dashboard that enables Uber India to monitor and analyze key operational metrics, including ride bookings, revenue, cancellations, vehicle performance, customer behavior, ratings, and location-based demand. The dashboard will support data-driven decision-making by presenting meaningful insights and Key Performance Indicators (KPIs) through an interactive reporting platform.
 Business Problem
