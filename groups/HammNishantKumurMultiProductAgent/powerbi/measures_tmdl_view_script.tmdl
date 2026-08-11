@@ -1,0 +1,131 @@
+createOrReplace
+	ref table Fact_DieselPrice
+
+		measure 'Latest Price With Tax' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			RETURN
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			```
+			formatString: #,##0.0
+
+		measure 'Latest Price Wo Tax' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			RETURN
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWoTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			```
+			formatString: #,##0.0
+
+		measure 'Latest Tax Share' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			RETURN
+				CALCULATE(
+					AVERAGE(Fact_DieselPrice[TaxSharePct]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			```
+			formatString: 0.0%
+
+		measure 'WoW Change EUR' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			VAR CurrPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			VAR TargetDate = LatestDate - 7
+			VAR PrevDate =
+				CALCULATE(
+					MAX(Fact_DieselPrice[Date]),
+					Fact_DieselPrice[IsForecast] = FALSE(),
+					Fact_DieselPrice[Date] <= TargetDate
+				)
+			VAR PrevPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = PrevDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			RETURN
+				CurrPrice - PrevPrice
+			```
+			formatString: #,##0.0
+
+		measure 'YoY Pct Change' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			VAR CurrPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			VAR TargetDate = LatestDate - 364
+			VAR LastYearDate =
+				CALCULATE(
+					MAX(Fact_DieselPrice[Date]),
+					Fact_DieselPrice[IsForecast] = FALSE(),
+					Fact_DieselPrice[Date] <= TargetDate
+				)
+			VAR LastYearPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LastYearDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			RETURN
+				DIVIDE(CurrPrice - LastYearPrice, LastYearPrice)
+			```
+			formatString: 0.0%
+
+		measure 'Forecast End Price' = ```
+			VAR ForecastEndDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = TRUE())
+			RETURN
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = ForecastEndDate,
+					Fact_DieselPrice[IsForecast] = TRUE()
+				)
+			```
+			formatString: #,##0.0
+
+		measure 'Forecast Change Pct' = ```
+			VAR LatestDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = FALSE())
+			VAR CurrPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = LatestDate,
+					Fact_DieselPrice[IsForecast] = FALSE()
+				)
+			VAR ForecastEndDate =
+				CALCULATE(MAX(Fact_DieselPrice[Date]), Fact_DieselPrice[IsForecast] = TRUE())
+			VAR ForecastPrice =
+				CALCULATE(
+					SUM(Fact_DieselPrice[PriceWithTax_EUR_per_1000L]),
+					Fact_DieselPrice[Date] = ForecastEndDate,
+					Fact_DieselPrice[IsForecast] = TRUE()
+				)
+			RETURN
+				DIVIDE(ForecastPrice - CurrPrice, CurrPrice)
+			```
+			formatString: 0.0%
+
+		measure 'Avg Tax Share (All History)' = ```
+			AVERAGE(Fact_DieselPrice[TaxSharePct])
+			```
+			formatString: 0.0%
