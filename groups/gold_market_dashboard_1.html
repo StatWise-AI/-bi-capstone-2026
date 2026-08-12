@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gold Market Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg-deep:#f7f7f5;
+  --bg-panel:#ffffff;
+  --bg-panel-2:#f4f2ec;
+  --gold-1:#b8842e;
+  --gold-2:#8a6218;
+  --gold-glow: rgba(184,132,46,0.20);
+  --text-main:#1c1d1f;
+  --text-dim:#767a82;
+  --line:#e5e3dc;
+  --up:#2e9e63;
+  --down:#c8434f;
+  --font-display: 'Georgia', 'Iowan Old Style', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', 'Courier New', monospace;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:
+    radial-gradient(1200px 600px at 10% -10%, rgba(184,132,46,0.05), transparent 60%),
+    radial-gradient(900px 500px at 100% 0%, rgba(138,98,24,0.04), transparent 55%),
+    var(--bg-deep);
+  color:var(--text-main);
+  font-family:var(--font-body);
+  padding:28px;
+  min-height:100vh;
+}
+.wrap{max-width:1280px;margin:0 auto;}
+
+/* HEADER */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+.header-left{display:flex;align-items:center;gap:16px;}
+.bar-icon{
+  width:52px;height:52px;border-radius:12px;
+  background:linear-gradient(160deg, var(--gold-1), var(--gold-2));
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 24px var(--gold-glow);
+  flex-shrink:0;
+}
+.title-block h1{
+  font-family:var(--font-display);
+  font-size:26px;
+  letter-spacing:0.5px;
+  margin:0;
+  color:var(--text-main);
+}
+.title-block .sub{
+  font-size:12px;
+  color:var(--text-dim);
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  margin-top:3px;
+}
+.asof{
+  text-align:right;
+  font-size:12px;
+  color:var(--text-dim);
+}
+.asof .price{
+  font-family:var(--font-mono);
+  font-size:22px;
+  color:var(--gold-1);
+  font-weight:600;
+}
+.asof .chg{font-size:13px;margin-left:6px;}
+.chg.pos{color:var(--up);}
+.chg.neg{color:var(--down);}
+
+/* FILTER BAR */
+.filters{
+  display:flex;
+  gap:28px;
+  align-items:center;
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:16px 24px;
+  margin-bottom:22px;
+  flex-wrap:wrap;
+}
+.filter-group{display:flex;flex-direction:column;gap:6px;}
+.filter-group label{
+  font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);font-weight:600;
+}
+.filter-group select{
+  background:var(--bg-panel-2);
+  border:1px solid var(--line);
+  color:var(--text-main);
+  padding:8px 14px;
+  border-radius:8px;
+  font-size:14px;
+  font-family:var(--font-body);
+  min-width:140px;
+  cursor:pointer;
+}
+.filter-group select:focus{outline:2px solid var(--gold-2);}
+.range-note{
+  margin-left:auto;
+  font-size:12px;
+  color:var(--text-dim);
+  font-family:var(--font-mono);
+}
+
+/* KPI CARDS */
+.kpis{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:22px;
+}
+.kpi-card{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px 22px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s ease;
+}
+.kpi-card:hover{border-color:var(--gold-2);}
+.kpi-card .label{
+  font-size:11px;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  font-weight:600;
+  margin-bottom:10px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.kpi-card .value{
+  font-family:var(--font-mono);
+  font-size:30px;
+  font-weight:600;
+  color:var(--text-main);
+}
+.kpi-card .value.gold{color:var(--gold-1);}
+.kpi-card .foot{font-size:12px;color:var(--text-dim);margin-top:6px;}
+.kpi-icon{
+  width:22px;height:22px;opacity:0.85;
+}
+
+/* CHART PANELS */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+.panel{
+  background:var(--bg-panel);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:20px 22px 14px;
+}
+.panel-title{
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.5px;
+  color:var(--text-main);
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.panel-title .tag{
+  font-size:10px;
+  color:var(--gold-1);
+  border:1px solid var(--gold-2);
+  border-radius:20px;
+  padding:2px 10px;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+.chart-box{position:relative;height:260px;}
+.wide{grid-column:1 / -1;}
+.footer-note{
+  text-align:center;
+  color:var(--text-dim);
+  font-size:11px;
+  margin-top:22px;
+  letter-spacing:0.5px;
+}
+
+.forecast-panel{border-color:rgba(240,192,74,0.3);}
+.forecast-tag{color:var(--gold-1);border-color:var(--gold-1);}
+.forecast-table{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:6px;
+}
+.fc-cell{
+  background:var(--bg-panel-2);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 16px;
+  text-align:center;
+}
+.fc-cell .fc-month{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--text-dim);margin-bottom:6px;}
+.fc-cell .fc-mean{font-family:var(--font-mono);font-size:19px;color:var(--gold-1);font-weight:600;}
+.fc-cell .fc-range{font-size:11px;color:var(--text-dim);margin-top:4px;}
+.forecast-disclaimer{
+  font-size:11px;
+  color:var(--text-dim);
+  margin-top:14px;
+  line-height:1.5;
+  border-top:1px solid var(--line);
+  padding-top:12px;
+}
+
+@media (max-width:900px){
+  .forecast-table{grid-template-columns:1fr;}
+  .kpis{grid-template-columns:repeat(2,1fr);}
+  .grid{grid-template-columns:1fr;}
+  .header{flex-direction:column;align-items:flex-start;gap:14px;}
+  .asof{text-align:left;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div class="header-left">
+      <div class="bar-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="14" width="4" height="7" rx="1" fill="#ffffff"/>
+          <rect x="10" y="9" width="4" height="12" rx="1" fill="#ffffff"/>
+          <rect x="17" y="4" width="4" height="17" rx="1" fill="#ffffff"/>
+        </svg>
+      </div>
+      <div class="title-block">
+        <h1>Gold Market Dashboard</h1>
+        <div class="sub">Historical Price &amp; Volume Analysis</div>
+      </div>
+    </div>
+    <div class="asof">
+      <div>Latest Close &middot; <span id="latestDate"></span></div>
+      <span class="price" id="latestPrice"></span>
+      <span class="chg" id="latestChg"></span>
+    </div>
+  </div>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label>Year</label>
+      <select id="yearFilter"></select>
+    </div>
+    <div class="filter-group">
+      <label>Metric</label>
+      <select id="metricFilter">
+        <option value="close">Close Price</option>
+        <option value="avg">Average Price</option>
+      </select>
+    </div>
+    <div class="range-note" id="rangeNote"></div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi-card">
+      <div class="label">All Time High <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#b8842e" stroke-width="2"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg></div>
+      <div class="value gold" id="athVal"></div>
+      <div class="foot">Intraday high, all history</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">All Time Low <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#767a82" stroke-width="2"><path d="M3 7l6 6 4-4 8 8"/><path d="M15 17h6v-6"/></svg></div>
+      <div class="value" id="atlVal"></div>
+      <div class="foot">Intraday low, all history</div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Average Close <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#b8842e" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div>
+      <div class="value" id="avgVal"></div>
+      <div class="foot" id="avgFoot"></div>
+    </div>
+    <div class="kpi-card">
+      <div class="label">Total Volume <svg class="kpi-icon" viewBox="0 0 24 24" fill="none" stroke="#b8842e" stroke-width="2"><rect x="3" y="10" width="4" height="10"/><rect x="10" y="6" width="4" height="14"/><rect x="17" y="3" width="4" height="17"/></svg></div>
+      <div class="value" id="volVal"></div>
+      <div class="foot" id="volFoot"></div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-title">Quarterly Average Price <span class="tag">Bar</span></div>
+      <div class="chart-box"><canvas id="quarterlyChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Monthly Price Trend <span class="tag">Area</span></div>
+      <div class="chart-box"><canvas id="monthlyChart"></canvas></div>
+    </div>
+    <div class="panel wide">
+      <div class="panel-title">Gold Price Trend, 2016&ndash;2026 <span class="tag">Line</span></div>
+      <div class="chart-box" style="height:280px;"><canvas id="yearlyChart"></canvas></div>
+    </div>
+    <div class="panel wide">
+      <div class="panel-title">Volume Trend <span class="tag">Bar</span></div>
+      <div class="chart-box" style="height:220px;"><canvas id="volumeChart"></canvas></div>
+    </div>
+    <div class="panel wide forecast-panel">
+      <div class="panel-title">3-Month Price Forecast <span class="tag forecast-tag">Projected</span></div>
+      <div class="chart-box" style="height:260px;"><canvas id="forecastChart"></canvas></div>
+      <div class="forecast-table" id="forecastTable"></div>
+      <div class="forecast-disclaimer">Statistical projection only (damped-trend exponential smoothing on monthly closes, 90% interval). Not investment advice &mdash; actual gold prices depend on macro, currency, and geopolitical factors this model can't see.</div>
+    </div>
+  </div>
+
+  <div class="footer-note">Source: gold_historical_data.csv &middot; 2016-02-05 to 2026-01-30 &middot; 2510 trading days</div>
+</div>
+
+<script>
+const DATA = {"yearly": [{"Year": 2016, "open": 1155.6, "close": 1150.0, "high": 1374.9, "low": 1123.9, "avg": 1264.39, "volume": 1118470}, {"Year": 2017, "open": 1155.2, "close": 1306.3, "high": 1355.8, "low": 1146.5, "avg": 1257.7, "volume": 1641376}, {"Year": 2018, "open": 1302.3, "close": 1278.3, "high": 1365.4, "low": 1161.4, "avg": 1267.6, "volume": 1820360}, {"Year": 2019, "open": 1286.0, "close": 1519.5, "high": 1553.2, "low": 1266.0, "avg": 1392.72, "volume": 1635460}, {"Year": 2020, "open": 1518.1, "close": 1893.1, "high": 2063.0, "low": 1452.1, "avg": 1773.16, "volume": 1235966}, {"Year": 2021, "open": 1912.2, "close": 1827.5, "high": 1959.9, "low": 1673.7, "avg": 1797.67, "volume": 1172775}, {"Year": 2022, "open": 1830.1, "close": 1819.7, "high": 2072.0, "low": 1615.1, "avg": 1800.07, "volume": 1004662}, {"Year": 2023, "open": 1836.2, "close": 2062.4, "high": 2130.2, "low": 1808.1, "avg": 1942.77, "volume": 996487}, {"Year": 2024, "open": 2063.5, "close": 2629.2, "high": 2789.0, "low": 1984.8, "avg": 2390.01, "volume": 1065885}, {"Year": 2025, "open": 2633.0, "close": 4325.6, "high": 4556.3, "low": 2617.3, "avg": 3447.35, "volume": 1089198}, {"Year": 2026, "open": 4350.6, "close": 4713.9, "high": 5586.2, "low": 4314.4, "avg": 4730.86, "volume": 174627}], "quarterly": [{"Year": 2016, "Quarter": 1, "close": 1234.2, "avg": 1233.19, "volume": 253368, "label": "2016 Q1"}, {"Year": 2016, "Quarter": 2, "close": 1318.4, "avg": 1259.89, "volume": 295222, "label": "2016 Q2"}, {"Year": 2016, "Quarter": 3, "close": 1313.3, "avg": 1333.51, "volume": 312137, "label": "2016 Q3"}, {"Year": 2016, "Quarter": 4, "close": 1150.0, "avg": 1216.03, "volume": 257743, "label": "2016 Q4"}, {"Year": 2017, "Quarter": 1, "close": 1247.3, "avg": 1219.66, "volume": 551768, "label": "2017 Q1"}, {"Year": 2017, "Quarter": 2, "close": 1240.7, "avg": 1256.96, "volume": 422746, "label": "2017 Q2"}, {"Year": 2017, "Quarter": 3, "close": 1281.5, "avg": 1278.18, "volume": 329539, "label": "2017 Q3"}, {"Year": 2017, "Quarter": 4, "close": 1306.3, "avg": 1275.39, "volume": 337323, "label": "2017 Q4"}, {"Year": 2018, "Quarter": 1, "close": 1322.8, "avg": 1328.23, "volume": 704862, "label": "2018 Q1"}, {"Year": 2018, "Quarter": 2, "close": 1251.3, "avg": 1305.94, "volume": 453173, "label": "2018 Q2"}, {"Year": 2018, "Quarter": 3, "close": 1191.5, "avg": 1211.0, "volume": 349117, "label": "2018 Q3"}, {"Year": 2018, "Quarter": 4, "close": 1278.3, "avg": 1227.51, "volume": 313208, "label": "2018 Q4"}, {"Year": 2019, "Quarter": 1, "close": 1293.0, "avg": 1302.09, "volume": 574687, "label": "2019 Q1"}, {"Year": 2019, "Quarter": 2, "close": 1409.7, "avg": 1308.07, "volume": 261926, "label": "2019 Q2"}, {"Year": 2019, "Quarter": 3, "close": 1465.7, "avg": 1473.21, "volume": 336867, "label": "2019 Q3"}, {"Year": 2019, "Quarter": 4, "close": 1519.5, "avg": 1481.95, "volume": 461980, "label": "2019 Q4"}, {"Year": 2020, "Quarter": 1, "close": 1583.4, "avg": 1583.19, "volume": 449836, "label": "2020 Q1"}, {"Year": 2020, "Quarter": 2, "close": 1793.0, "avg": 1716.8, "volume": 199328, "label": "2020 Q2"}, {"Year": 2020, "Quarter": 3, "close": 1887.5, "avg": 1910.35, "volume": 276458, "label": "2020 Q3"}, {"Year": 2020, "Quarter": 4, "close": 1893.1, "avg": 1875.49, "volume": 310344, "label": "2020 Q4"}, {"Year": 2021, "Quarter": 1, "close": 1713.8, "avg": 1791.68, "volume": 410657, "label": "2021 Q1"}, {"Year": 2021, "Quarter": 2, "close": 1770.8, "avg": 1814.58, "volume": 229245, "label": "2021 Q2"}, {"Year": 2021, "Quarter": 3, "close": 1755.3, "avg": 1788.82, "volume": 292114, "label": "2021 Q3"}, {"Year": 2021, "Quarter": 4, "close": 1827.5, "avg": 1795.58, "volume": 240759, "label": "2021 Q4"}, {"Year": 2022, "Quarter": 1, "close": 1949.2, "avg": 1878.96, "volume": 398521, "label": "2022 Q1"}, {"Year": 2022, "Quarter": 2, "close": 1804.1, "avg": 1870.46, "volume": 178428, "label": "2022 Q2"}, {"Year": 2022, "Quarter": 3, "close": 1662.4, "avg": 1724.75, "volume": 247736, "label": "2022 Q3"}, {"Year": 2022, "Quarter": 4, "close": 1819.7, "avg": 1729.67, "volume": 179977, "label": "2022 Q4"}, {"Year": 2023, "Quarter": 1, "close": 1969.0, "avg": 1890.42, "volume": 300737, "label": "2023 Q1"}, {"Year": 2023, "Quarter": 2, "close": 1921.1, "avg": 1978.22, "volume": 229032, "label": "2023 Q2"}, {"Year": 2023, "Quarter": 3, "close": 1848.1, "avg": 1926.47, "volume": 249556, "label": "2023 Q3"}, {"Year": 2023, "Quarter": 4, "close": 2062.4, "avg": 1975.7, "volume": 217162, "label": "2023 Q4"}, {"Year": 2024, "Quarter": 1, "close": 2217.4, "avg": 2070.99, "volume": 436453, "label": "2024 Q1"}, {"Year": 2024, "Quarter": 2, "close": 2327.7, "avg": 2336.58, "volume": 170292, "label": "2024 Q2"}, {"Year": 2024, "Quarter": 3, "close": 2636.1, "avg": 2474.85, "volume": 191544, "label": "2024 Q3"}, {"Year": 2024, "Quarter": 4, "close": 2629.2, "avg": 2661.82, "volume": 267596, "label": "2024 Q4"}, {"Year": 2025, "Quarter": 1, "close": 3122.8, "avg": 2867.9, "volume": 404747, "label": "2025 Q1"}, {"Year": 2025, "Quarter": 2, "close": 3294.4, "avg": 3279.81, "volume": 233227, "label": "2025 Q2"}, {"Year": 2025, "Quarter": 3, "close": 3840.8, "avg": 3461.81, "volume": 217689, "label": "2025 Q3"}, {"Year": 2025, "Quarter": 4, "close": 4325.6, "avg": 4147.25, "volume": 233535, "label": "2025 Q4"}, {"Year": 2026, "Quarter": 1, "close": 4713.9, "avg": 4730.86, "volume": 174627, "label": "2026 Q1"}], "monthly": [{"YM": "2016-02", "close": 1233.9, "avg": 1217.12, "volume": 8617}, {"YM": "2016-03", "close": 1234.2, "avg": 1244.88, "volume": 244751}, {"YM": "2016-04", "close": 1289.2, "avg": 1242.54, "volume": 9954}, {"YM": "2016-05", "close": 1214.8, "avg": 1259.59, "volume": 271888}, {"YM": "2016-06", "close": 1318.4, "avg": 1276.75, "volume": 13380}, {"YM": "2016-07", "close": 1349.0, "avg": 1337.21, "volume": 281653}, {"YM": "2016-08", "close": 1306.9, "avg": 1337.96, "volume": 11854}, {"YM": "2016-09", "close": 1313.3, "avg": 1325.11, "volume": 18630}, {"YM": "2016-10", "close": 1271.5, "avg": 1263.98, "volume": 5748}, {"YM": "2016-11", "close": 1170.8, "avg": 1235.96, "volume": 242023}, {"YM": "2016-12", "close": 1150.0, "avg": 1151.4, "volume": 9972}, {"YM": "2017-01", "close": 1208.6, "avg": 1193.19, "volume": 289655}, {"YM": "2017-02", "close": 1252.6, "avg": 1234.54, "volume": 11087}, {"YM": "2017-03", "close": 1247.3, "avg": 1230.38, "volume": 251026}, {"YM": "2017-04", "close": 1266.1, "avg": 1268.65, "volume": 9065}, {"YM": "2017-05", "close": 1272.0, "avg": 1243.76, "volume": 404733}, {"YM": "2017-06", "close": 1240.7, "avg": 1260.06, "volume": 8948}, {"YM": "2017-07", "close": 1266.6, "avg": 1235.96, "volume": 292633}, {"YM": "2017-08", "close": 1316.2, "avg": 1283.8, "volume": 10098}, {"YM": "2017-09", "close": 1281.5, "avg": 1313.94, "volume": 26808}, {"YM": "2017-10", "close": 1267.0, "avg": 1279.25, "volume": 3513}, {"YM": "2017-11", "close": 1273.2, "avg": 1280.69, "volume": 326214}, {"YM": "2017-12", "close": 1306.3, "avg": 1265.57, "volume": 7596}, {"YM": "2018-01", "close": 1339.0, "avg": 1330.68, "volume": 338322}, {"YM": "2018-02", "close": 1315.5, "avg": 1330.06, "volume": 10243}, {"YM": "2018-03", "close": 1322.8, "avg": 1324.24, "volume": 356297}, {"YM": "2018-04", "close": 1316.2, "avg": 1335.34, "volume": 6114}, {"YM": "2018-05", "close": 1300.1, "avg": 1302.62, "volume": 441893}, {"YM": "2018-06", "close": 1251.3, "avg": 1280.02, "volume": 5166}, {"YM": "2018-07", "close": 1223.7, "avg": 1236.02, "volume": 319715}, {"YM": "2018-08", "close": 1200.3, "avg": 1199.95, "volume": 5996}, {"YM": "2018-09", "close": 1191.5, "avg": 1196.71, "volume": 23406}, {"YM": "2018-10", "close": 1212.3, "avg": 1213.97, "volume": 4126}, {"YM": "2018-11", "close": 1220.2, "avg": 1219.24, "volume": 304805}, {"YM": "2018-12", "close": 1278.3, "avg": 1253.05, "volume": 4277}, {"YM": "2019-01", "close": 1319.7, "avg": 1290.86, "volume": 270998}, {"YM": "2019-02", "close": 1312.8, "avg": 1318.45, "volume": 7989}, {"YM": "2019-03", "close": 1293.0, "avg": 1298.53, "volume": 295700}, {"YM": "2019-04", "close": 1282.8, "avg": 1284.79, "volume": 6961}, {"YM": "2019-05", "close": 1305.8, "avg": 1283.37, "volume": 248448}, {"YM": "2019-06", "close": 1409.7, "avg": 1359.67, "volume": 6517}, {"YM": "2019-07", "close": 1426.1, "avg": 1413.3, "volume": 302051}, {"YM": "2019-08", "close": 1519.1, "avg": 1502.04, "volume": 17142}, {"YM": "2019-09", "close": 1465.7, "avg": 1507.42, "volume": 17674}, {"YM": "2019-10", "close": 1511.4, "avg": 1493.33, "volume": 5233}, {"YM": "2019-11", "close": 1465.6, "avg": 1470.0, "volume": 443701}, {"YM": "2019-12", "close": 1519.5, "avg": 1480.85, "volume": 13046}, {"YM": "2020-01", "close": 1582.9, "avg": 1559.93, "volume": 316262}, {"YM": "2020-02", "close": 1564.1, "avg": 1595.62, "volume": 9617}, {"YM": "2020-03", "close": 1583.4, "avg": 1594.65, "volume": 123957}, {"YM": "2020-04", "close": 1684.2, "avg": 1694.98, "volume": 14324}, {"YM": "2020-05", "close": 1736.9, "avg": 1718.69, "volume": 168568}, {"YM": "2020-06", "close": 1793.0, "avg": 1735.92, "volume": 16436}, {"YM": "2020-07", "close": 1962.8, "avg": 1847.54, "volume": 246967}, {"YM": "2020-08", "close": 1967.6, "avg": 1966.24, "volume": 11710}, {"YM": "2020-09", "close": 1887.5, "avg": 1920.28, "volume": 17781}, {"YM": "2020-10", "close": 1877.4, "avg": 1900.25, "volume": 9613}, {"YM": "2020-11", "close": 1775.7, "avg": 1866.08, "volume": 288589}, {"YM": "2020-12", "close": 1893.1, "avg": 1859.3, "volume": 12142}, {"YM": "2021-01", "close": 1847.3, "avg": 1865.18, "volume": 225930}, {"YM": "2021-02", "close": 1728.1, "avg": 1805.53, "volume": 16813}, {"YM": "2021-03", "close": 1713.8, "avg": 1719.52, "volume": 167914}, {"YM": "2021-04", "close": 1767.3, "avg": 1759.76, "volume": 10646}, {"YM": "2021-05", "close": 1902.5, "avg": 1850.65, "volume": 210133}, {"YM": "2021-06", "close": 1770.8, "avg": 1834.12, "volume": 8466}, {"YM": "2021-07", "close": 1812.6, "avg": 1805.5, "volume": 245814}, {"YM": "2021-08", "close": 1815.0, "avg": 1785.23, "volume": 17757}, {"YM": "2021-09", "close": 1755.3, "avg": 1775.9, "volume": 28543}, {"YM": "2021-10", "close": 1783.0, "avg": 1776.4, "volume": 8208}, {"YM": "2021-11", "close": 1773.6, "avg": 1819.5, "volume": 221748}, {"YM": "2021-12", "close": 1827.5, "avg": 1791.05, "volume": 10803}, {"YM": "2022-01", "close": 1795.0, "avg": 1816.64, "volume": 231198}, {"YM": "2022-02", "close": 1899.4, "avg": 1857.74, "volume": 9459}, {"YM": "2022-03", "close": 1949.2, "avg": 1950.67, "volume": 157864}, {"YM": "2022-04", "close": 1909.3, "avg": 1933.93, "volume": 7725}, {"YM": "2022-05", "close": 1842.7, "avg": 1845.94, "volume": 162852}, {"YM": "2022-06", "close": 1804.1, "avg": 1834.55, "volume": 7851}, {"YM": "2022-07", "close": 1762.9, "avg": 1729.8, "volume": 194989}, {"YM": "2022-08", "close": 1712.8, "avg": 1762.48, "volume": 11161}, {"YM": "2022-09", "close": 1662.4, "avg": 1678.61, "volume": 41586}, {"YM": "2022-10", "close": 1635.9, "avg": 1665.84, "volume": 8817}, {"YM": "2022-11", "close": 1746.0, "avg": 1726.05, "volume": 161813}, {"YM": "2022-12", "close": 1819.7, "avg": 1797.11, "volume": 9347}, {"YM": "2023-01", "close": 1929.5, "avg": 1899.83, "volume": 186113}, {"YM": "2023-02", "close": 1828.9, "avg": 1853.24, "volume": 10363}, {"YM": "2023-03", "close": 1969.0, "avg": 1912.96, "volume": 104261}, {"YM": "2023-04", "close": 1990.1, "avg": 2001.05, "volume": 7282}, {"YM": "2023-05", "close": 1963.9, "avg": 1993.42, "volume": 215367}, {"YM": "2023-06", "close": 1921.1, "avg": 1941.65, "volume": 6383}, {"YM": "2023-07", "close": 1970.5, "avg": 1950.76, "volume": 220474}, {"YM": "2023-08", "close": 1938.2, "avg": 1917.56, "volume": 9086}, {"YM": "2023-09", "close": 1848.1, "avg": 1912.41, "volume": 19996}, {"YM": "2023-10", "close": 1985.2, "avg": 1915.57, "volume": 8474}, {"YM": "2023-11", "close": 2038.1, "avg": 1985.37, "volume": 199965}, {"YM": "2023-12", "close": 2062.4, "avg": 2031.67, "volume": 8723}, {"YM": "2024-01", "close": 2048.4, "avg": 2028.04, "volume": 184110}, {"YM": "2024-02", "close": 2045.7, "avg": 2025.21, "volume": 10440}, {"YM": "2024-03", "close": 2217.4, "avg": 2161.87, "volume": 241903}, {"YM": "2024-04", "close": 2291.4, "avg": 2332.59, "volume": 8117}, {"YM": "2024-05", "close": 2322.9, "avg": 2349.63, "volume": 154217}, {"YM": "2024-06", "close": 2327.7, "avg": 2326.08, "volume": 7958}, {"YM": "2024-07", "close": 2426.5, "avg": 2393.34, "volume": 155434}, {"YM": "2024-08", "close": 2493.8, "avg": 2467.25, "volume": 12103}, {"YM": "2024-09", "close": 2636.1, "avg": 2572.87, "volume": 24007}, {"YM": "2024-10", "close": 2738.3, "avg": 2688.9, "volume": 4495}, {"YM": "2024-11", "close": 2657.0, "avg": 2649.82, "volume": 246317}, {"YM": "2024-12", "close": 2629.2, "avg": 2643.58, "volume": 16784}, {"YM": "2025-01", "close": 2812.5, "avg": 2722.95, "volume": 191766}, {"YM": "2025-02", "close": 2836.8, "avg": 2897.12, "volume": 44640}, {"YM": "2025-03", "close": 3122.8, "avg": 2986.41, "volume": 168341}, {"YM": "2025-04", "close": 3305.0, "avg": 3211.15, "volume": 38612}, {"YM": "2025-05", "close": 3288.9, "avg": 3280.74, "volume": 172644}, {"YM": "2025-06", "close": 3294.4, "avg": 3350.94, "volume": 21971}, {"YM": "2025-07", "close": 3293.2, "avg": 3341.81, "volume": 142774}, {"YM": "2025-08", "close": 3473.7, "avg": 3372.74, "volume": 36288}, {"YM": "2025-09", "close": 3840.8, "avg": 3682.3, "volume": 38627}, {"YM": "2025-10", "close": 3982.2, "avg": 4044.37, "volume": 42621}, {"YM": "2025-11", "close": 4218.3, "avg": 4082.12, "volume": 169699}, {"YM": "2025-12", "close": 4325.6, "avg": 4311.06, "volume": 21215}, {"YM": "2026-01", "close": 4713.9, "avg": 4730.86, "volume": 174627}], "weekly": [{"Date": "2016-02-07", "close": 1157.8, "volume": 877}, {"Date": "2016-02-14", "close": 1239.1, "volume": 3547}, {"Date": "2016-02-21", "close": 1230.4, "volume": 866}, {"Date": "2016-02-28", "close": 1219.8, "volume": 2747}, {"Date": "2016-03-06", "close": 1269.9, "volume": 1715}, {"Date": "2016-03-13", "close": 1258.7, "volume": 395}, {"Date": "2016-03-20", "close": 1253.8, "volume": 709}, {"Date": "2016-03-27", "close": 1221.4, "volume": 1122}, {"Date": "2016-04-03", "close": 1222.2, "volume": 242992}, {"Date": "2016-04-10", "close": 1242.5, "volume": 3547}, {"Date": "2016-04-17", "close": 1233.1, "volume": 1186}, {"Date": "2016-04-24", "close": 1228.7, "volume": 1182}, {"Date": "2016-05-01", "close": 1289.2, "volume": 2437}, {"Date": "2016-05-08", "close": 1292.9, "volume": 1087}, {"Date": "2016-05-15", "close": 1271.9, "volume": 581}, {"Date": "2016-05-22", "close": 1252.4, "volume": 190}, {"Date": "2016-05-29", "close": 1213.8, "volume": 263598}, {"Date": "2016-06-05", "close": 1240.1, "volume": 12398}, {"Date": "2016-06-12", "close": 1273.4, "volume": 2600}, {"Date": "2016-06-19", "close": 1292.5, "volume": 1424}, {"Date": "2016-06-26", "close": 1320.0, "volume": 1252}, {"Date": "2016-07-03", "close": 1336.7, "volume": 2275}, {"Date": "2016-07-10", "close": 1356.6, "volume": 676}, {"Date": "2016-07-17", "close": 1326.5, "volume": 357}, {"Date": "2016-07-24", "close": 1323.1, "volume": 1500}, {"Date": "2016-07-31", "close": 1349.0, "volume": 278983}, {"Date": "2016-08-07", "close": 1336.4, "volume": 6401}, {"Date": "2016-08-14", "close": 1335.8, "volume": 2096}, {"Date": "2016-08-21", "close": 1340.4, "volume": 872}, {"Date": "2016-08-28", "close": 1321.5, "volume": 1129}, {"Date": "2016-09-04", "close": 1322.1, "volume": 1636}, {"Date": "2016-09-11", "close": 1330.1, "volume": 125}, {"Date": "2016-09-18", "close": 1305.8, "volume": 370}, {"Date": "2016-09-25", "close": 1337.2, "volume": 256}, {"Date": "2016-10-02", "close": 1313.3, "volume": 17599}, {"Date": "2016-10-09", "close": 1248.9, "volume": 2721}, {"Date": "2016-10-16", "close": 1253.1, "volume": 779}, {"Date": "2016-10-23", "close": 1265.9, "volume": 910}, {"Date": "2016-10-30", "close": 1275.5, "volume": 1280}, {"Date": "2016-11-06", "close": 1303.3, "volume": 221}, {"Date": "2016-11-13", "close": 1265.5, "volume": 255}, {"Date": "2016-11-20", "close": 1208.5, "volume": 2048}, {"Date": "2016-11-27", "close": 1178.2, "volume": 361}, {"Date": "2016-12-04", "close": 1175.1, "volume": 242305}, {"Date": "2016-12-11", "close": 1159.4, "volume": 1879}, {"Date": "2016-12-18", "close": 1135.3, "volume": 1845}, {"Date": "2016-12-25", "close": 1131.9, "volume": 519}, {"Date": "2017-01-01", "close": 1150.0, "volume": 2620}, {"Date": "2017-01-08", "close": 1171.9, "volume": 604}, {"Date": "2017-01-15", "close": 1195.3, "volume": 265}, {"Date": "2017-01-22", "close": 1204.3, "volume": 257}, {"Date": "2017-01-29", "close": 1188.1, "volume": 234814}, {"Date": "2017-02-05", "close": 1218.5, "volume": 57237}, {"Date": "2017-02-12", "close": 1234.4, "volume": 3649}, {"Date": "2017-02-19", "close": 1237.6, "volume": 1120}, {"Date": "2017-02-26", "close": 1256.9, "volume": 1531}, {"Date": "2017-03-05", "close": 1225.5, "volume": 1603}, {"Date": "2017-03-12", "close": 1200.7, "volume": 146}, {"Date": "2017-03-19", "close": 1229.8, "volume": 166}, {"Date": "2017-03-26", "close": 1248.2, "volume": 56}, {"Date": "2017-04-02", "close": 1247.3, "volume": 250320}, {"Date": "2017-04-09", "close": 1254.3, "volume": 3405}, {"Date": "2017-04-16", "close": 1285.9, "volume": 1990}, {"Date": "2017-04-23", "close": 1287.4, "volume": 1262}, {"Date": "2017-04-30", "close": 1266.1, "volume": 2408}, {"Date": "2017-05-07", "close": 1224.8, "volume": 407}, {"Date": "2017-05-14", "close": 1226.2, "volume": 163}, {"Date": "2017-05-21", "close": 1252.7, "volume": 116}, {"Date": "2017-05-28", "close": 1267.6, "volume": 271516}, {"Date": "2017-06-04", "close": 1276.8, "volume": 135088}, {"Date": "2017-06-11", "close": 1268.5, "volume": 2802}, {"Date": "2017-06-18", "close": 1254.0, "volume": 1518}, {"Date": "2017-06-25", "close": 1256.2, "volume": 813}, {"Date": "2017-07-02", "close": 1240.7, "volume": 1258}, {"Date": "2017-07-09", "close": 1208.6, "volume": 194}, {"Date": "2017-07-16", "close": 1226.6, "volume": 77}, {"Date": "2017-07-23", "close": 1254.3, "volume": 60}, {"Date": "2017-07-30", "close": 1268.4, "volume": 284522}, {"Date": "2017-08-06", "close": 1258.3, "volume": 10633}, {"Date": "2017-08-13", "close": 1287.7, "volume": 2136}, {"Date": "2017-08-20", "close": 1285.7, "volume": 1037}, {"Date": "2017-08-27", "close": 1292.5, "volume": 1198}, {"Date": "2017-09-03", "close": 1324.5, "volume": 3187}, {"Date": "2017-09-10", "close": 1346.0, "volume": 122}, {"Date": "2017-09-17", "close": 1320.4, "volume": 371}, {"Date": "2017-09-24", "close": 1293.3, "volume": 706}, {"Date": "2017-10-01", "close": 1281.5, "volume": 25296}, {"Date": "2017-10-08", "close": 1271.6, "volume": 628}, {"Date": "2017-10-15", "close": 1301.5, "volume": 146}, {"Date": "2017-10-22", "close": 1277.4, "volume": 1345}, {"Date": "2017-10-29", "close": 1268.5, "volume": 937}, {"Date": "2017-11-05", "close": 1266.5, "volume": 680}, {"Date": "2017-11-12", "close": 1272.4, "volume": 182}, {"Date": "2017-11-19", "close": 1295.8, "volume": 64}, {"Date": "2017-11-26", "close": 1286.7, "volume": 9}, {"Date": "2017-12-03", "close": 1278.8, "volume": 326559}, {"Date": "2017-12-10", "close": 1245.2, "volume": 3237}, {"Date": "2017-12-17", "close": 1254.3, "volume": 1904}, {"Date": "2017-12-24", "close": 1275.4, "volume": 782}, {"Date": "2017-12-31", "close": 1306.3, "volume": 850}, {"Date": "2018-01-07", "close": 1320.3, "volume": 113}, {"Date": "2018-01-14", "close": 1333.4, "volume": 150}, {"Date": "2018-01-21", "close": 1331.9, "volume": 301}, {"Date": "2018-01-28", "close": 1351.6, "volume": 280777}, {"Date": "2018-02-04", "close": 1333.7, "volume": 61502}, {"Date": "2018-02-11", "close": 1313.1, "volume": 2571}, {"Date": "2018-02-18", "close": 1353.2, "volume": 832}, {"Date": "2018-02-25", "close": 1328.2, "volume": 899}, {"Date": "2018-03-04", "close": 1321.1, "volume": 1618}, {"Date": "2018-03-11", "close": 1322.4, "volume": 213}, {"Date": "2018-03-18", "close": 1311.3, "volume": 66}, {"Date": "2018-03-25", "close": 1349.3, "volume": 52}, {"Date": "2018-04-01", "close": 1322.8, "volume": 355768}, {"Date": "2018-04-08", "close": 1331.9, "volume": 2675}, {"Date": "2018-04-15", "close": 1344.8, "volume": 614}, {"Date": "2018-04-22", "close": 1336.7, "volume": 1211}, {"Date": "2018-04-29", "close": 1320.3, "volume": 1565}, {"Date": "2018-05-06", "close": 1312.7, "volume": 104}, {"Date": "2018-05-13", "close": 1319.0, "volume": 422}, {"Date": "2018-05-20", "close": 1290.2, "volume": 42}, {"Date": "2018-05-27", "close": 1303.3, "volume": 113}, {"Date": "2018-06-03", "close": 1294.8, "volume": 441924}, {"Date": "2018-06-10", "close": 1298.1, "volume": 1603}, {"Date": "2018-06-17", "close": 1274.6, "volume": 990}, {"Date": "2018-06-24", "close": 1267.4, "volume": 196}, {"Date": "2018-07-01", "close": 1251.3, "volume": 1714}, {"Date": "2018-07-08", "close": 1254.3, "volume": 81}, {"Date": "2018-07-15", "close": 1239.6, "volume": 141}, {"Date": "2018-07-22", "close": 1229.5, "volume": 102}, {"Date": "2018-07-29", "close": 1222.6, "volume": 254430}, {"Date": "2018-08-05", "close": 1214.2, "volume": 67182}, {"Date": "2018-08-12", "close": 1211.1, "volume": 1340}, {"Date": "2018-08-19", "close": 1176.5, "volume": 430}, {"Date": "2018-08-26", "close": 1206.3, "volume": 214}, {"Date": "2018-09-02", "close": 1200.3, "volume": 1791}, {"Date": "2018-09-09", "close": 1193.6, "volume": 83}, {"Date": "2018-09-16", "close": 1195.0, "volume": 92}, {"Date": "2018-09-23", "close": 1196.2, "volume": 2}, {"Date": "2018-09-30", "close": 1191.5, "volume": 23229}, {"Date": "2018-10-07", "close": 1201.2, "volume": 1237}, {"Date": "2018-10-14", "close": 1218.1, "volume": 1585}, {"Date": "2018-10-21", "close": 1225.3, "volume": 783}, {"Date": "2018-10-28", "close": 1232.5, "volume": 114}, {"Date": "2018-11-04", "close": 1230.9, "volume": 439}, {"Date": "2018-11-11", "close": 1206.4, "volume": 36}, {"Date": "2018-11-18", "close": 1220.8, "volume": 11}, {"Date": "2018-11-25", "close": 1221.0, "volume": 13}, {"Date": "2018-12-02", "close": 1220.2, "volume": 304713}, {"Date": "2018-12-09", "close": 1246.8, "volume": 1870}, {"Date": "2018-12-16", "close": 1237.0, "volume": 559}, {"Date": "2018-12-23", "close": 1253.8, "volume": 454}, {"Date": "2018-12-30", "close": 1279.9, "volume": 1375}, {"Date": "2019-01-06", "close": 1282.7, "volume": 212}, {"Date": "2019-01-13", "close": 1287.1, "volume": 169}, {"Date": "2019-01-20", "close": 1281.3, "volume": 25}, {"Date": "2019-01-27", "close": 1297.4, "volume": 22}, {"Date": "2019-02-03", "close": 1316.9, "volume": 271467}, {"Date": "2019-02-10", "close": 1313.7, "volume": 1720}, {"Date": "2019-02-17", "close": 1318.1, "volume": 1419}, {"Date": "2019-02-24", "close": 1329.2, "volume": 2103}, {"Date": "2019-03-03", "close": 1296.4, "volume": 1979}, {"Date": "2019-03-10", "close": 1297.0, "volume": 177}, {"Date": "2019-03-17", "close": 1301.8, "volume": 37}, {"Date": "2019-03-24", "close": 1311.6, "volume": 30}, {"Date": "2019-03-31", "close": 1293.0, "volume": 295346}, {"Date": "2019-04-07", "close": 1290.4, "volume": 1822}, {"Date": "2019-04-14", "close": 1290.6, "volume": 1186}, {"Date": "2019-04-21", "close": 1271.9, "volume": 1501}, {"Date": "2019-04-28", "close": 1284.9, "volume": 1770}, {"Date": "2019-05-05", "close": 1279.2, "volume": 830}, {"Date": "2019-05-12", "close": 1285.7, "volume": 69}, {"Date": "2019-05-19", "close": 1274.5, "volume": 121}, {"Date": "2019-05-26", "close": 1283.0, "volume": 29}, {"Date": "2019-06-02", "close": 1305.8, "volume": 248081}, {"Date": "2019-06-09", "close": 1341.2, "volume": 2137}, {"Date": "2019-06-16", "close": 1340.1, "volume": 1679}, {"Date": "2019-06-23", "close": 1396.2, "volume": 345}, {"Date": "2019-06-30", "close": 1409.7, "volume": 2356}, {"Date": "2019-07-07", "close": 1396.7, "volume": 318}, {"Date": "2019-07-14", "close": 1409.9, "volume": 131}, {"Date": "2019-07-21", "close": 1425.1, "volume": 132}, {"Date": "2019-07-28", "close": 1418.5, "volume": 35}, {"Date": "2019-08-04", "close": 1445.6, "volume": 305739}, {"Date": "2019-08-11", "close": 1496.6, "volume": 2733}, {"Date": "2019-08-18", "close": 1512.5, "volume": 3159}, {"Date": "2019-08-25", "close": 1526.6, "volume": 2710}, {"Date": "2019-09-01", "close": 1519.1, "volume": 4236}, {"Date": "2019-09-08", "close": 1506.2, "volume": 364}, {"Date": "2019-09-15", "close": 1490.9, "volume": 128}, {"Date": "2019-09-22", "close": 1507.3, "volume": 44}, {"Date": "2019-09-29", "close": 1499.1, "volume": 16060}, {"Date": "2019-10-06", "close": 1506.2, "volume": 2948}, {"Date": "2019-10-13", "close": 1482.7, "volume": 422}, {"Date": "2019-10-20", "close": 1488.2, "volume": 1503}, {"Date": "2019-10-27", "close": 1499.5, "volume": 446}, {"Date": "2019-11-03", "close": 1508.0, "volume": 1227}, {"Date": "2019-11-10", "close": 1461.3, "volume": 1301}, {"Date": "2019-11-17", "close": 1467.3, "volume": 180}, {"Date": "2019-11-24", "close": 1463.1, "volume": 225}, {"Date": "2019-12-01", "close": 1465.6, "volume": 441760}, {"Date": "2019-12-08", "close": 1459.1, "volume": 6051}, {"Date": "2019-12-15", "close": 1475.6, "volume": 3644}, {"Date": "2019-12-22", "close": 1474.7, "volume": 1196}, {"Date": "2019-12-29", "close": 1513.8, "volume": 1408}, {"Date": "2020-01-05", "close": 1549.2, "volume": 1068}, {"Date": "2020-01-12", "close": 1557.5, "volume": 769}, {"Date": "2020-01-19", "close": 1558.8, "volume": 297}, {"Date": "2020-01-26", "close": 1571.1, "volume": 145}, {"Date": "2020-02-02", "close": 1582.9, "volume": 314730}, {"Date": "2020-02-09", "close": 1568.6, "volume": 3886}, {"Date": "2020-02-16", "close": 1582.7, "volume": 746}, {"Date": "2020-02-23", "close": 1644.6, "volume": 1155}, {"Date": "2020-03-01", "close": 1564.1, "volume": 3830}, {"Date": "2020-03-08", "close": 1670.8, "volume": 1559}, {"Date": "2020-03-15", "close": 1515.7, "volume": 601}, {"Date": "2020-03-22", "close": 1484.0, "volume": 924}, {"Date": "2020-03-29", "close": 1623.9, "volume": 101610}, {"Date": "2020-04-05", "close": 1633.7, "volume": 23358}, {"Date": "2020-04-12", "close": 1736.2, "volume": 3779}, {"Date": "2020-04-19", "close": 1689.2, "volume": 2398}, {"Date": "2020-04-26", "close": 1723.5, "volume": 1928}, {"Date": "2020-05-03", "close": 1694.5, "volume": 2461}, {"Date": "2020-05-10", "close": 1709.9, "volume": 2054}, {"Date": "2020-05-17", "close": 1753.4, "volume": 2895}, {"Date": "2020-05-24", "close": 1734.6, "volume": 946}, {"Date": "2020-05-31", "close": 1736.9, "volume": 162336}, {"Date": "2020-06-07", "close": 1676.2, "volume": 6676}, {"Date": "2020-06-14", "close": 1729.3, "volume": 2660}, {"Date": "2020-06-21", "close": 1745.9, "volume": 1700}, {"Date": "2020-06-28", "close": 1772.5, "volume": 3830}, {"Date": "2020-07-05", "close": 1784.0, "volume": 2116}, {"Date": "2020-07-12", "close": 1798.2, "volume": 1764}, {"Date": "2020-07-19", "close": 1808.3, "volume": 840}, {"Date": "2020-07-26", "close": 1897.3, "volume": 1026}, {"Date": "2020-08-02", "close": 1962.8, "volume": 242791}, {"Date": "2020-08-09", "close": 2010.1, "volume": 5217}, {"Date": "2020-08-16", "close": 1937.0, "volume": 1880}, {"Date": "2020-08-23", "close": 1934.6, "volume": 826}, {"Date": "2020-08-30", "close": 1964.6, "volume": 3629}, {"Date": "2020-09-06", "close": 1923.9, "volume": 1201}, {"Date": "2020-09-13", "close": 1937.8, "volume": 1285}, {"Date": "2020-09-20", "close": 1952.1, "volume": 358}, {"Date": "2020-09-27", "close": 1857.7, "volume": 757}, {"Date": "2020-10-04", "close": 1900.2, "volume": 15598}, {"Date": "2020-10-11", "close": 1919.5, "volume": 3306}, {"Date": "2020-10-18", "close": 1900.8, "volume": 627}, {"Date": "2020-10-25", "close": 1902.0, "volume": 2760}, {"Date": "2020-11-01", "close": 1877.4, "volume": 1660}, {"Date": "2020-11-08", "close": 1950.3, "volume": 2123}, {"Date": "2020-11-15", "close": 1885.7, "volume": 1703}, {"Date": "2020-11-22", "close": 1872.6, "volume": 2176}, {"Date": "2020-11-29", "close": 1781.9, "volume": 279442}, {"Date": "2020-12-06", "close": 1835.9, "volume": 8753}, {"Date": "2020-12-13", "close": 1839.8, "volume": 2049}, {"Date": "2020-12-20", "close": 1885.7, "volume": 2999}, {"Date": "2020-12-27", "close": 1879.9, "volume": 497}, {"Date": "2021-01-03", "close": 1893.1, "volume": 989}, {"Date": "2021-01-10", "close": 1834.1, "volume": 780}, {"Date": "2021-01-17", "close": 1829.3, "volume": 565}, {"Date": "2021-01-24", "close": 1855.7, "volume": 43}, {"Date": "2021-01-31", "close": 1847.3, "volume": 224542}, {"Date": "2021-02-07", "close": 1810.9, "volume": 7635}, {"Date": "2021-02-14", "close": 1821.6, "volume": 1842}, {"Date": "2021-02-21", "close": 1775.8, "volume": 2460}, {"Date": "2021-02-28", "close": 1728.1, "volume": 4876}, {"Date": "2021-03-07", "close": 1698.0, "volume": 2598}, {"Date": "2021-03-14", "close": 1719.5, "volume": 2135}, {"Date": "2021-03-21", "close": 1741.4, "volume": 1515}, {"Date": "2021-03-28", "close": 1732.2, "volume": 131}, {"Date": "2021-04-04", "close": 1726.5, "volume": 162255}, {"Date": "2021-04-11", "close": 1743.3, "volume": 3504}, {"Date": "2021-04-18", "close": 1779.0, "volume": 2437}, {"Date": "2021-04-25", "close": 1777.0, "volume": 2349}, {"Date": "2021-05-02", "close": 1767.3, "volume": 1636}, {"Date": "2021-05-09", "close": 1831.1, "volume": 272}, {"Date": "2021-05-16", "close": 1837.9, "volume": 577}, {"Date": "2021-05-23", "close": 1876.7, "volume": 454}, {"Date": "2021-05-30", "close": 1902.5, "volume": 208830}, {"Date": "2021-06-06", "close": 1889.8, "volume": 3295}, {"Date": "2021-06-13", "close": 1877.4, "volume": 1700}, {"Date": "2021-06-20", "close": 1767.9, "volume": 1725}, {"Date": "2021-06-27", "close": 1776.6, "volume": 388}, {"Date": "2021-07-04", "close": 1782.6, "volume": 1425}, {"Date": "2021-07-11", "close": 1810.0, "volume": 942}, {"Date": "2021-07-18", "close": 1814.5, "volume": 1109}, {"Date": "2021-07-25", "close": 1801.4, "volume": 299}, {"Date": "2021-08-01", "close": 1812.6, "volume": 243397}, {"Date": "2021-08-08", "close": 1760.0, "volume": 8982}, {"Date": "2021-08-15", "close": 1775.2, "volume": 4701}, {"Date": "2021-08-22", "close": 1781.0, "volume": 1162}, {"Date": "2021-08-29", "close": 1816.6, "volume": 2146}, {"Date": "2021-09-05", "close": 1830.9, "volume": 959}, {"Date": "2021-09-12", "close": 1789.6, "volume": 166}, {"Date": "2021-09-19", "close": 1749.4, "volume": 3582}, {"Date": "2021-09-26", "close": 1749.7, "volume": 415}, {"Date": "2021-10-03", "close": 1757.0, "volume": 26407}, {"Date": "2021-10-10", "close": 1756.3, "volume": 1161}, {"Date": "2021-10-17", "close": 1767.2, "volume": 1628}, {"Date": "2021-10-24", "close": 1795.5, "volume": 1122}, {"Date": "2021-10-31", "close": 1783.0, "volume": 2077}, {"Date": "2021-11-07", "close": 1816.4, "volume": 805}, {"Date": "2021-11-14", "close": 1867.9, "volume": 1728}, {"Date": "2021-11-21", "close": 1851.2, "volume": 120}, {"Date": "2021-11-28", "close": 1785.3, "volume": 187266}, {"Date": "2021-12-05", "close": 1782.0, "volume": 35208}, {"Date": "2021-12-12", "close": 1782.9, "volume": 3072}, {"Date": "2021-12-19", "close": 1803.8, "volume": 1486}, {"Date": "2021-12-26", "close": 1811.2, "volume": 1561}, {"Date": "2022-01-02", "close": 1827.5, "volume": 1305}, {"Date": "2022-01-09", "close": 1797.0, "volume": 209}, {"Date": "2022-01-16", "close": 1816.5, "volume": 3680}, {"Date": "2022-01-23", "close": 1831.8, "volume": 943}, {"Date": "2022-01-30", "close": 1784.9, "volume": 224631}, {"Date": "2022-02-06", "close": 1806.6, "volume": 4685}, {"Date": "2022-02-13", "close": 1840.8, "volume": 1938}, {"Date": "2022-02-20", "close": 1898.6, "volume": 643}, {"Date": "2022-02-27", "close": 1886.5, "volume": 3538}, {"Date": "2022-03-06", "close": 1965.1, "volume": 1215}, {"Date": "2022-03-13", "close": 1982.7, "volume": 6886}, {"Date": "2022-03-20", "close": 1928.2, "volume": 387}, {"Date": "2022-03-27", "close": 1953.8, "volume": 326}, {"Date": "2022-04-03", "close": 1919.1, "volume": 150456}, {"Date": "2022-04-10", "close": 1941.6, "volume": 1385}, {"Date": "2022-04-17", "close": 1970.9, "volume": 714}, {"Date": "2022-04-24", "close": 1931.0, "volume": 1129}, {"Date": "2022-05-01", "close": 1909.3, "volume": 3481}, {"Date": "2022-05-08", "close": 1881.2, "volume": 1146}, {"Date": "2022-05-15", "close": 1807.4, "volume": 3224}, {"Date": "2022-05-22", "close": 1841.8, "volume": 714}, {"Date": "2022-05-29", "close": 1851.3, "volume": 153695}, {"Date": "2022-06-05", "close": 1845.4, "volume": 6300}, {"Date": "2022-06-12", "close": 1871.5, "volume": 3177}, {"Date": "2022-06-19", "close": 1835.6, "volume": 1077}, {"Date": "2022-06-26", "close": 1826.5, "volume": 401}, {"Date": "2022-07-03", "close": 1798.9, "volume": 1046}, {"Date": "2022-07-10", "close": 1740.6, "volume": 4032}, {"Date": "2022-07-17", "close": 1702.4, "volume": 2904}, {"Date": "2022-07-24", "close": 1727.1, "volume": 2322}, {"Date": "2022-07-31", "close": 1762.9, "volume": 185654}, {"Date": "2022-08-07", "close": 1772.9, "volume": 3112}, {"Date": "2022-08-14", "close": 1798.6, "volume": 2399}, {"Date": "2022-08-21", "close": 1747.6, "volume": 765}, {"Date": "2022-08-28", "close": 1736.1, "volume": 1417}, {"Date": "2022-09-04", "close": 1709.8, "volume": 4333}, {"Date": "2022-09-11", "close": 1716.2, "volume": 3176}, {"Date": "2022-09-18", "close": 1671.7, "volume": 2621}, {"Date": "2022-09-25", "close": 1645.3, "volume": 7944}, {"Date": "2022-10-02", "close": 1662.4, "volume": 26980}, {"Date": "2022-10-09", "close": 1700.5, "volume": 1431}, {"Date": "2022-10-16", "close": 1641.7, "volume": 1322}, {"Date": "2022-10-23", "close": 1651.0, "volume": 1620}, {"Date": "2022-10-30", "close": 1639.6, "volume": 3922}, {"Date": "2022-11-06", "close": 1672.5, "volume": 3705}, {"Date": "2022-11-13", "close": 1766.0, "volume": 1144}, {"Date": "2022-11-20", "close": 1751.9, "volume": 1150}, {"Date": "2022-11-27", "close": 1753.3, "volume": 814}, {"Date": "2022-12-04", "close": 1795.9, "volume": 158300}, {"Date": "2022-12-11", "close": 1798.1, "volume": 3078}, {"Date": "2022-12-18", "close": 1790.0, "volume": 1991}, {"Date": "2022-12-25", "close": 1795.9, "volume": 625}, {"Date": "2023-01-01", "close": 1819.7, "volume": 875}, {"Date": "2023-01-08", "close": 1864.2, "volume": 104}, {"Date": "2023-01-15", "close": 1918.4, "volume": 1970}, {"Date": "2023-01-22", "close": 1926.4, "volume": 3450}, {"Date": "2023-01-29", "close": 1928.6, "volume": 151459}, {"Date": "2023-02-05", "close": 1862.9, "volume": 33160}, {"Date": "2023-02-12", "close": 1862.8, "volume": 1201}, {"Date": "2023-02-19", "close": 1840.4, "volume": 1850}, {"Date": "2023-02-26", "close": 1808.8, "volume": 1835}, {"Date": "2023-03-05", "close": 1847.7, "volume": 1873}, {"Date": "2023-03-12", "close": 1862.0, "volume": 1110}, {"Date": "2023-03-19", "close": 1969.8, "volume": 1650}, {"Date": "2023-03-26", "close": 1982.1, "volume": 538}, {"Date": "2023-04-02", "close": 1969.0, "volume": 100537}, {"Date": "2023-04-09", "close": 2011.9, "volume": 2073}, {"Date": "2023-04-16", "close": 2002.2, "volume": 2653}, {"Date": "2023-04-23", "close": 1979.5, "volume": 983}, {"Date": "2023-04-30", "close": 1990.1, "volume": 1573}, {"Date": "2023-05-07", "close": 2017.4, "volume": 4444}, {"Date": "2023-05-14", "close": 2014.5, "volume": 697}, {"Date": "2023-05-21", "close": 1978.7, "volume": 194}, {"Date": "2023-05-28", "close": 1944.1, "volume": 166235}, {"Date": "2023-06-04", "close": 1952.4, "volume": 44903}, {"Date": "2023-06-11", "close": 1962.2, "volume": 1498}, {"Date": "2023-06-18", "close": 1958.4, "volume": 1205}, {"Date": "2023-06-25", "close": 1919.1, "volume": 1092}, {"Date": "2023-07-02", "close": 1921.1, "volume": 1482}, {"Date": "2023-07-09", "close": 1926.2, "volume": 376}, {"Date": "2023-07-16", "close": 1960.1, "volume": 758}, {"Date": "2023-07-23", "close": 1964.3, "volume": 835}, {"Date": "2023-07-30", "close": 1960.4, "volume": 217480}, {"Date": "2023-08-06", "close": 1939.6, "volume": 3428}, {"Date": "2023-08-13", "close": 1912.9, "volume": 1617}, {"Date": "2023-08-20", "close": 1886.1, "volume": 405}, {"Date": "2023-08-27", "close": 1911.1, "volume": 2001}, {"Date": "2023-09-03", "close": 1939.8, "volume": 2827}, {"Date": "2023-09-10", "close": 1918.4, "volume": 283}, {"Date": "2023-09-17", "close": 1923.7, "volume": 607}, {"Date": "2023-09-24", "close": 1925.4, "volume": 154}, {"Date": "2023-10-01", "close": 1848.1, "volume": 18785}, {"Date": "2023-10-08", "close": 1830.2, "volume": 3759}, {"Date": "2023-10-15", "close": 1927.4, "volume": 622}, {"Date": "2023-10-22", "close": 1982.5, "volume": 2725}, {"Date": "2023-10-29", "close": 1988.6, "volume": 1127}, {"Date": "2023-11-05", "close": 1991.5, "volume": 333}, {"Date": "2023-11-12", "close": 1932.6, "volume": 578}, {"Date": "2023-11-19", "close": 1981.6, "volume": 270}, {"Date": "2023-11-26", "close": 2002.2, "volume": 6336}, {"Date": "2023-12-03", "close": 2071.0, "volume": 193303}, {"Date": "2023-12-10", "close": 1998.3, "volume": 2293}, {"Date": "2023-12-17", "close": 2021.1, "volume": 3495}, {"Date": "2023-12-24", "close": 2057.1, "volume": 1286}, {"Date": "2023-12-31", "close": 2062.4, "volume": 1035}, {"Date": "2024-01-07", "close": 2042.4, "volume": 215}, {"Date": "2024-01-14", "close": 2046.7, "volume": 1062}, {"Date": "2024-01-21", "close": 2026.5, "volume": 2334}, {"Date": "2024-01-28", "close": 2016.8, "volume": 877}, {"Date": "2024-02-04", "close": 2036.1, "volume": 181457}, {"Date": "2024-02-11", "close": 2023.3, "volume": 1135}, {"Date": "2024-02-18", "close": 2011.5, "volume": 2749}, {"Date": "2024-02-25", "close": 2038.6, "volume": 2327}, {"Date": "2024-03-03", "close": 2086.9, "volume": 3604}, {"Date": "2024-03-10", "close": 2178.6, "volume": 2946}, {"Date": "2024-03-17", "close": 2157.3, "volume": 1923}, {"Date": "2024-03-24", "close": 2158.1, "volume": 132}, {"Date": "2024-03-31", "close": 2217.4, "volume": 235692}, {"Date": "2024-04-07", "close": 2325.7, "volume": 1715}, {"Date": "2024-04-14", "close": 2356.2, "volume": 1657}, {"Date": "2024-04-21", "close": 2398.4, "volume": 2167}, {"Date": "2024-04-28", "close": 2334.8, "volume": 2060}, {"Date": "2024-05-05", "close": 2299.0, "volume": 810}, {"Date": "2024-05-12", "close": 2367.3, "volume": 169}, {"Date": "2024-05-19", "close": 2412.2, "volume": 269}, {"Date": "2024-05-26", "close": 2332.5, "volume": 616}, {"Date": "2024-06-02", "close": 2322.9, "volume": 152871}, {"Date": "2024-06-09", "close": 2305.2, "volume": 2414}, {"Date": "2024-06-16", "close": 2331.4, "volume": 2318}, {"Date": "2024-06-23", "close": 2316.4, "volume": 412}, {"Date": "2024-06-30", "close": 2327.7, "volume": 2814}, {"Date": "2024-07-07", "close": 2388.5, "volume": 398}, {"Date": "2024-07-14", "close": 2414.0, "volume": 519}, {"Date": "2024-07-21", "close": 2395.5, "volume": 660}, {"Date": "2024-07-28", "close": 2380.0, "volume": 191}, {"Date": "2024-08-04", "close": 2425.7, "volume": 154906}, {"Date": "2024-08-11", "close": 2432.1, "volume": 1439}, {"Date": "2024-08-18", "close": 2498.6, "volume": 1832}, {"Date": "2024-08-25", "close": 2508.4, "volume": 675}, {"Date": "2024-09-01", "close": 2493.8, "volume": 6917}, {"Date": "2024-09-08", "close": 2493.5, "volume": 826}, {"Date": "2024-09-15", "close": 2581.3, "volume": 354}, {"Date": "2024-09-22", "close": 2619.9, "volume": 191}, {"Date": "2024-09-29", "close": 2644.3, "volume": 21663}, {"Date": "2024-10-06", "close": 2645.8, "volume": 1666}, {"Date": "2024-10-13", "close": 2657.6, "volume": 1455}, {"Date": "2024-10-20", "close": 2713.7, "volume": 144}, {"Date": "2024-10-27", "close": 2740.9, "volume": 219}, {"Date": "2024-11-03", "close": 2738.6, "volume": 2093}, {"Date": "2024-11-10", "close": 2687.5, "volume": 2180}, {"Date": "2024-11-17", "close": 2565.7, "volume": 238}, {"Date": "2024-11-24", "close": 2709.9, "volume": 324}, {"Date": "2024-12-01", "close": 2657.0, "volume": 243466}, {"Date": "2024-12-08", "close": 2638.6, "volume": 3150}, {"Date": "2024-12-15", "close": 2656.0, "volume": 8249}, {"Date": "2024-12-22", "close": 2628.7, "volume": 2978}, {"Date": "2024-12-29", "close": 2617.2, "volume": 1212}, {"Date": "2025-01-05", "close": 2645.0, "volume": 3514}, {"Date": "2025-01-12", "close": 2708.5, "volume": 4144}, {"Date": "2025-01-19", "close": 2744.3, "volume": 5424}, {"Date": "2025-01-26", "close": 2777.3, "volume": 7312}, {"Date": "2025-02-02", "close": 2812.5, "volume": 172567}, {"Date": "2025-02-09", "close": 2867.3, "volume": 14293}, {"Date": "2025-02-16", "close": 2883.6, "volume": 13957}, {"Date": "2025-02-23", "close": 2937.6, "volume": 7866}, {"Date": "2025-03-02", "close": 2836.8, "volume": 8524}, {"Date": "2025-03-09", "close": 2904.7, "volume": 3260}, {"Date": "2025-03-16", "close": 2994.5, "volume": 4631}, {"Date": "2025-03-23", "close": 3018.2, "volume": 1153}, {"Date": "2025-03-30", "close": 3086.5, "volume": 155859}, {"Date": "2025-04-06", "close": 3012.0, "volume": 19868}, {"Date": "2025-04-13", "close": 3222.2, "volume": 14130}, {"Date": "2025-04-20", "close": 3308.7, "volume": 3351}, {"Date": "2025-04-27", "close": 3282.4, "volume": 1916}, {"Date": "2025-05-04", "close": 3231.9, "volume": 6265}, {"Date": "2025-05-11", "close": 3335.4, "volume": 4097}, {"Date": "2025-05-18", "close": 3182.0, "volume": 7679}, {"Date": "2025-05-25", "close": 3363.6, "volume": 2858}, {"Date": "2025-06-01", "close": 3288.9, "volume": 154530}, {"Date": "2025-06-08", "close": 3322.7, "volume": 8405}, {"Date": "2025-06-15", "close": 3431.2, "volume": 6375}, {"Date": "2025-06-22", "close": 3368.1, "volume": 2666}, {"Date": "2025-06-29", "close": 3273.7, "volume": 3283}, {"Date": "2025-07-06", "close": 3332.5, "volume": 1652}, {"Date": "2025-07-13", "close": 3356.0, "volume": 2262}, {"Date": "2025-07-20", "close": 3353.0, "volume": 2072}, {"Date": "2025-07-27", "close": 3334.0, "volume": 1397}, {"Date": "2025-08-03", "close": 3347.7, "volume": 140053}, {"Date": "2025-08-10", "close": 3439.1, "volume": 15879}, {"Date": "2025-08-17", "close": 3336.0, "volume": 5887}, {"Date": "2025-08-24", "close": 3374.4, "volume": 4896}, {"Date": "2025-08-31", "close": 3473.7, "volume": 6206}, {"Date": "2025-09-07", "close": 3613.2, "volume": 1892}, {"Date": "2025-09-14", "close": 3649.4, "volume": 2375}, {"Date": "2025-09-21", "close": 3671.5, "volume": 1057}, {"Date": "2025-09-28", "close": 3775.3, "volume": 22832}, {"Date": "2025-10-05", "close": 3880.8, "volume": 16059}, {"Date": "2025-10-12", "close": 3975.9, "volume": 11176}, {"Date": "2025-10-19", "close": 4189.9, "volume": 16173}, {"Date": "2025-10-26", "close": 4118.4, "volume": 6407}, {"Date": "2025-11-02", "close": 3982.2, "volume": 3277}, {"Date": "2025-11-09", "close": 3999.4, "volume": 2111}, {"Date": "2025-11-16", "close": 4087.6, "volume": 1804}, {"Date": "2025-11-23", "close": 4076.7, "volume": 3786}, {"Date": "2025-11-30", "close": 4218.3, "volume": 161998}, {"Date": "2025-12-07", "close": 4212.9, "volume": 4325}, {"Date": "2025-12-14", "close": 4300.1, "volume": 3729}, {"Date": "2025-12-21", "close": 4361.4, "volume": 6589}, {"Date": "2025-12-28", "close": 4529.1, "volume": 1906}, {"Date": "2026-01-04", "close": 4314.4, "volume": 5255}, {"Date": "2026-01-11", "close": 4490.3, "volume": 4709}, {"Date": "2026-01-18", "close": 4588.4, "volume": 6418}, {"Date": "2026-01-25", "close": 4976.2, "volume": 3225}, {"Date": "2026-02-01", "close": 4713.9, "volume": 159686}], "kpi": {"all_time_high": 5586.2, "all_time_low": 1123.9, "latest_close": 4713.9, "latest_date": "2026-01-30", "total_volume": 12955266, "avg_close": 1862.68, "start_date": "2016-02-05", "end_date": "2026-01-30", "records": 2510, "ytd_change_pct": 9.26}, "forecast": [{"YM": "2026-02", "mean": 4880.62, "lower": 4749.43, "upper": 5011.81}, {"YM": "2026-03", "mean": 5044.03, "lower": 4843.27, "upper": 5244.79}, {"YM": "2026-04", "mean": 5204.17, "lower": 4939.58, "upper": 5468.76}]};
+
+const fmt = n => '$' + n.toLocaleString(undefined,{maximumFractionDigits:0});
+const fmtVol = n => (n/1e6).toFixed(2)+'M';
+
+// ---- Header KPIs ----
+document.getElementById('latestDate').textContent = DATA.kpi.latest_date;
+document.getElementById('latestPrice').textContent = fmt(DATA.kpi.latest_close);
+const chgEl = document.getElementById('latestChg');
+const chg = DATA.kpi.ytd_change_pct;
+chgEl.textContent = (chg>=0?'+':'') + chg + '% YTD';
+chgEl.className = 'chg ' + (chg>=0?'pos':'neg');
+
+document.getElementById('athVal').textContent = fmt(DATA.kpi.all_time_high);
+document.getElementById('atlVal').textContent = fmt(DATA.kpi.all_time_low);
+document.getElementById('avgVal').textContent = fmt(DATA.kpi.avg_close);
+document.getElementById('avgFoot').textContent = 'Across ' + DATA.kpi.records.toLocaleString() + ' trading days';
+document.getElementById('volVal').textContent = fmtVol(DATA.kpi.total_volume);
+document.getElementById('volFoot').textContent = DATA.kpi.start_date + ' \u2192 ' + DATA.kpi.end_date;
+document.getElementById('rangeNote').textContent = DATA.kpi.start_date + ' to ' + DATA.kpi.end_date;
+
+// footer
+document.querySelector('.footer-note').innerHTML =
+  'Source: gold_historical_data.csv &middot; ' + DATA.kpi.start_date + ' to ' + DATA.kpi.end_date + ' &middot; ' + DATA.kpi.records.toLocaleString() + ' trading days';
+
+// ---- Year filter ----
+const years = [...new Set(DATA.yearly.map(d=>d.Year))].sort();
+const yearSel = document.getElementById('yearFilter');
+yearSel.innerHTML = '<option value="all">All Years</option>' + years.map(y=>`<option value="${y}">${y}</option>`).join('');
+yearSel.value = 'all';
+
+const metricSel = document.getElementById('metricFilter');
+
+Chart.defaults.color = '#767a82';
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+Chart.defaults.borderColor = '#e5e3dc';
+
+const gridOpt = {color:'#ececE4', drawTicks:false};
+
+function makeGradient(ctx, area, c1, c2){
+  const g = ctx.createLinearGradient(0,area.top,0,area.bottom);
+  g.addColorStop(0,c1); g.addColorStop(1,c2);
+  return g;
+}
+
+let quarterlyChart, monthlyChart, yearlyChart, volumeChart;
+
+function buildYearlyChart(){
+  const ctx = document.getElementById('yearlyChart');
+  yearlyChart = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: DATA.weekly.map(d=>d.Date),
+      datasets:[{
+        label:'Close',
+        data: DATA.weekly.map(d=>d.close),
+        borderColor:'#b8842e',
+        backgroundColor:'rgba(184,132,46,0.08)',
+        borderWidth:2,
+        pointRadius:0,
+        fill:true,
+        tension:0.15
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{mode:'index', intersect:false}},
+      scales:{
+        x:{ticks:{maxTicksLimit:10, callback:function(v){ const lbl=this.getLabelForValue(v); return lbl.slice(0,4); }}, grid:gridOpt},
+        y:{grid:gridOpt, ticks:{callback:v=>'$'+v.toLocaleString()}}
+      }
+    }
+  });
+}
+
+function buildVolumeChart(){
+  const ctx = document.getElementById('volumeChart');
+  volumeChart = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: DATA.monthly.map(d=>d.YM),
+      datasets:[{
+        label:'Volume',
+        data: DATA.monthly.map(d=>d.volume),
+        backgroundColor:'#b8842e',
+        borderRadius:2,
+        barThickness:5
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}},
+      scales:{
+        x:{ticks:{maxTicksLimit:12, callback:function(v){ const lbl=this.getLabelForValue(v); return lbl.slice(0,4); }}, grid:{display:false}},
+        y:{grid:gridOpt, ticks:{callback:v=>fmtVol(v)}}
+      }
+    }
+  });
+}
+
+function filteredQuarterly(year){
+  if(year==='all') return DATA.quarterly;
+  return DATA.quarterly.filter(d=>String(d.Year)===String(year));
+}
+function filteredMonthly(year){
+  if(year==='all') return DATA.monthly;
+  return DATA.monthly.filter(d=>d.YM.startsWith(String(year)));
+}
+
+function buildQuarterlyChart(){
+  const ctx = document.getElementById('quarterlyChart');
+  const yr = yearSel.value;
+  const metric = metricSel.value;
+  const rows = filteredQuarterly(yr);
+  quarterlyChart = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: rows.map(d=>d.label),
+      datasets:[{
+        label: metric==='close'?'Close':'Average',
+        data: rows.map(d=>d[metric]),
+        backgroundColor: ctx=>{
+          const {chart} = ctx;
+          const {ctx:c, chartArea} = chart;
+          if(!chartArea) return '#b8842e';
+          return makeGradient(c, chartArea, '#cfa34e', '#8a6218');
+        },
+        borderRadius:6,
+        maxBarThickness:42
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{callbacks:{label: c=> fmt(c.parsed.y)}}
+      },
+      scales:{
+        x:{grid:{display:false}, ticks:{maxRotation:0, autoSkip:true, maxTicksLimit:12}},
+        y:{grid:gridOpt, ticks:{callback:v=>'$'+v.toLocaleString()}}
+      }
+    }
+  });
+}
+
+function buildMonthlyChart(){
+  const ctx = document.getElementById('monthlyChart');
+  const yr = yearSel.value;
+  const metric = metricSel.value;
+  const rows = filteredMonthly(yr);
+  monthlyChart = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: rows.map(d=>d.YM),
+      datasets:[{
+        label: metric==='close'?'Close':'Average',
+        data: rows.map(d=>d[metric]),
+        borderColor:'#b8842e',
+        backgroundColor: ctx=>{
+          const {chart} = ctx;
+          const {ctx:c, chartArea} = chart;
+          if(!chartArea) return 'rgba(184,132,46,0.15)';
+          return makeGradient(c, chartArea, 'rgba(184,132,46,0.35)', 'rgba(184,132,46,0.02)');
+        },
+        borderWidth:2,
+        pointRadius:2,
+        pointBackgroundColor:'#b8842e',
+        fill:true,
+        tension:0.25
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{legend:{display:false}, tooltip:{callbacks:{label: c=> fmt(c.parsed.y)}}},
+      scales:{
+        x:{grid:{display:false}, ticks:{maxRotation:0, autoSkip:true, maxTicksLimit:12}},
+        y:{grid:gridOpt, ticks:{callback:v=>'$'+v.toLocaleString()}}
+      }
+    }
+  });
+}
+
+function refreshCharts(){
+  quarterlyChart.destroy();
+  monthlyChart.destroy();
+  buildQuarterlyChart();
+  buildMonthlyChart();
+}
+
+function buildForecastChart(){
+  const ctx = document.getElementById('forecastChart');
+  const histMonths = DATA.monthly.slice(-15); // last ~15 months actual for context
+  const fcMonths = DATA.forecast;
+  const labels = [...histMonths.map(d=>d.YM), ...fcMonths.map(d=>d.YM)];
+  const nHist = histMonths.length;
+
+  const actualData = [...histMonths.map(d=>d.close), ...fcMonths.map(()=>null)];
+  const forecastMean = [...histMonths.map(()=>null)];
+  forecastMean[nHist-1] = histMonths[nHist-1].close; // bridge line from last actual
+  fcMonths.forEach(d=>forecastMean.push(d.mean));
+  const upperBand = [...histMonths.map(()=>null)];
+  upperBand[nHist-1] = histMonths[nHist-1].close;
+  fcMonths.forEach(d=>upperBand.push(d.upper));
+  const lowerBand = [...histMonths.map(()=>null)];
+  lowerBand[nHist-1] = histMonths[nHist-1].close;
+  fcMonths.forEach(d=>lowerBand.push(d.lower));
+
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: labels,
+      datasets:[
+        {
+          label:'90% Interval (upper)',
+          data: upperBand,
+          borderColor:'transparent',
+          backgroundColor:'rgba(184,132,46,0.12)',
+          pointRadius:0,
+          fill:'+1',
+          tension:0.2,
+          order:3
+        },
+        {
+          label:'90% Interval (lower)',
+          data: lowerBand,
+          borderColor:'transparent',
+          backgroundColor:'rgba(184,132,46,0.12)',
+          pointRadius:0,
+          fill:false,
+          tension:0.2,
+          order:3
+        },
+        {
+          label:'Actual Close',
+          data: actualData,
+          borderColor:'#b8842e',
+          backgroundColor:'#b8842e',
+          borderWidth:2.5,
+          pointRadius:2,
+          fill:false,
+          tension:0.15,
+          order:1
+        },
+        {
+          label:'Forecast',
+          data: forecastMean,
+          borderColor:'#c8434f',
+          backgroundColor:'#c8434f',
+          borderWidth:2.5,
+          borderDash:[6,4],
+          pointRadius:3,
+          fill:false,
+          tension:0.15,
+          order:2
+        }
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      plugins:{
+        legend:{
+          display:true,
+          labels:{
+            filter: item => item.text==='Actual Close' || item.text==='Forecast',
+            boxWidth:14, color:'#767a82', font:{size:11}
+          }
+        },
+        tooltip:{
+          filter: item => item.dataset.label==='Actual Close' || item.dataset.label==='Forecast',
+          callbacks:{label: c=> c.dataset.label+': '+fmt(c.parsed.y)}
+        }
+      },
+      scales:{
+        x:{grid:{display:false}, ticks:{maxRotation:0, autoSkip:true, maxTicksLimit:10}},
+        y:{grid:gridOpt, ticks:{callback:v=>'$'+v.toLocaleString()}}
+      }
+    }
+  });
+}
+
+function buildForecastTable(){
+  const el = document.getElementById('forecastTable');
+  const monthNames = {'01':'Jan','02':'Feb','03':'Mar','04':'Apr','05':'May','06':'Jun','07':'Jul','08':'Aug','09':'Sep','10':'Oct','11':'Nov','12':'Dec'};
+  el.innerHTML = DATA.forecast.map(d=>{
+    const [y,m] = d.YM.split('-');
+    return `<div class="fc-cell">
+      <div class="fc-month">${monthNames[m]} ${y}</div>
+      <div class="fc-mean">${fmt(d.mean)}</div>
+      <div class="fc-range">${fmt(d.lower)} &ndash; ${fmt(d.upper)}</div>
+    </div>`;
+  }).join('');
+}
+
+buildYearlyChart();
+buildVolumeChart();
+buildQuarterlyChart();
+buildMonthlyChart();
+buildForecastChart();
+buildForecastTable();
+
+yearSel.addEventListener('change', refreshCharts);
+metricSel.addEventListener('change', refreshCharts);
+</script>
+</body>
+</html>
