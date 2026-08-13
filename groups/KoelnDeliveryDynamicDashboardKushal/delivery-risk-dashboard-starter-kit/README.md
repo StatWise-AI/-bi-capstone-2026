@@ -1,18 +1,18 @@
 # 📦 Delivery Risk Dashboard & AI Agent
 
 **Business Intelligence Capstone — SoSe 2026**
+
 **SRH University of Applied Sciences | Supervisor: Prof. Dr. Dany Djeudeu**
 
 Project Submission by
+
 **Kushal Basavaraju - 100004306**
+
 **Aaron Rodrigues - 100004313**
 
 Predicts SKU-level **delivery risk** (High / Medium / Low) for a global e-commerce
 supply chain, so operations managers can act *before* a shipment is late — instead
-of reacting after the fact. This is the delivery-side counterpart to last semester's
-Stock Dynamics & Trends Analysis (stockout risk) project, using the same
-methodology: EDA → feature engineering → preprocessing → model training →
-evaluation → decision-support system.
+of reacting after the fact. This is the delivery-side counterpart to last semester's Stock Dynamics & Trends Analysis (stockout risk) project, using the same methodology: EDA → feature engineering → preprocessing → model training → evaluation → decision-support system.
 
 ---
 
