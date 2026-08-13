@@ -3,21 +3,16 @@
 **Business Intelligence Capstone — SoSe 2026**
 **SRH University of Applied Sciences | Supervisor: Prof. Dr. Dany Djeudeu**
 
+Project Submission by
+**Kushal Basavaraju - 100004306**
+**Aaron Rodrigues - 100004313**
+
 Predicts SKU-level **delivery risk** (High / Medium / Low) for a global e-commerce
 supply chain, so operations managers can act *before* a shipment is late — instead
 of reacting after the fact. This is the delivery-side counterpart to last semester's
 Stock Dynamics & Trends Analysis (stockout risk) project, using the same
 methodology: EDA → feature engineering → preprocessing → model training →
 evaluation → decision-support system.
-
-This repository ships with a **complete, working ML pipeline and a working
-Streamlit AI-agent dashboard already built and tested**. Your job as a student is
-**not** to write machine learning code — it's to turn this into a compelling BI
-product: dashboard design, business storytelling, a Power BI companion, and (if
-you choose) extensions to the AI agent.
-
-👉 **Start here: [`STUDENT_GUIDE.md`](STUDENT_GUIDE.md)** for the full step-by-step
-walkthrough (setup → run → customize → deploy → submit).
 
 ---
 
