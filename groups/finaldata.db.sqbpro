@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="2928"/><column_width id="4" width="0"/></tab_structure><tab_browse><table title="." custom_title="0" dock_id="2" table="0,0:"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000002fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000011800ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">CREATE TABLE orders (
+    Order_ID INTEGER,
+    Order_Date DATE,
+    Product_ID TEXT,
+    Product_Category TEXT,
+    Supplier TEXT,
+    Warehouse TEXT,
+    Inventory_Quantity INTEGER,
+    Sales_Revenue REAL,
+    Purchase_Cost REAL,
+    Profit REAL
+);
+
+SELECT * FROM Orders LIMIT 10;
+
+SELECT 
+    Supplier,
+    AVG(&quot;Lead Time&quot;) AS Average_Lead_Time
+FROM Orders
+GROUP BY Supplier;
+
+SELECT 
+    Supplier,
+    COUNT(*) AS Total_Orders,
+    AVG(&quot;Lead Time&quot;) AS Average_Lead_Time,
+    AVG(&quot;Transportation Cost&quot;) AS Average_Transportation_Cost
+FROM Orders
+GROUP BY Supplier
+ORDER BY Average_Lead_Time ASC;
+
+SELECT
+    Warehouse,
+    SUM(&quot;Inventory Quantity&quot;) AS Total_Inventory,
+    SUM(&quot;Sales Quantity&quot;) AS Total_Sales,
+    ROUND(
+        CAST(SUM(&quot;Sales Quantity&quot;) AS FLOAT) /
+        SUM(&quot;Inventory Quantity&quot;),2
+    ) AS Inventory_Turnover
+FROM Orders
+GROUP BY Warehouse
+ORDER BY Inventory_Turnover DESC;
+
+
+SELECT
+    &quot;Product Category&quot;,
+    AVG(&quot;Profit Margin&quot;) AS Average_Profit_Margin,
+    SUM(Profit) AS Total_Profit
+FROM Orders
+GROUP BY &quot;Product Category&quot;
+ORDER BY Average_Profit_Margin DESC;
+
+
+SELECT
+    &quot;Product ID&quot;,
+    Warehouse,
+    &quot;Inventory Quantity&quot;,
+    &quot;Reorder Level&quot;
+FROM Orders
+WHERE &quot;Inventory Quantity&quot; &lt;= &quot;Reorder Level&quot;
+ORDER BY &quot;Inventory Quantity&quot;;
+
+
+SELECT
+    &quot;Customer Region&quot;,
+    SUM(&quot;Sales Revenue&quot;) AS Total_Revenue
+FROM Orders
+GROUP BY &quot;Customer Region&quot;
+ORDER BY Total_Revenue DESC;
+
+
+SELECT
+    &quot;Customer ID&quot;,
+    COUNT(*) AS Number_of_Orders,
+    SUM(&quot;Sales Revenue&quot;) AS Total_Revenue
+FROM Orders
+GROUP BY &quot;Customer ID&quot;
+ORDER BY Total_Revenue DESC
+LIMIT 10;
+
+
+SELECT
+    strftime('%Y-%m', &quot;Order Date&quot;) AS Month,
+    SUM(&quot;Sales Quantity&quot;) AS Total_Demand,
+    SUM(&quot;Sales Revenue&quot;) AS Revenue
+FROM Orders
+GROUP BY Month
+ORDER BY Month;
+
+
+SELECT
+    Supplier,
+    AVG(&quot;Delivery Delay (Days)&quot;) AS Average_Delay,
+    COUNT(*) AS Delayed_Orders
+FROM Orders
+GROUP BY Supplier
+ORDER BY Average_Delay DESC;
+
+
+SELECT
+    Warehouse,
+    SUM(&quot;Sales Quantity&quot;) AS Total_Sales,
+    AVG(&quot;Inventory Quantity&quot;) AS Average_Inventory,
+    ROUND(
+        SUM(&quot;Sales Quantity&quot;) * 1.0 / AVG(&quot;Inventory Quantity&quot;),
+        2
+    ) AS Inventory_Turnover
+FROM Orders
+GROUP BY Warehouse
+ORDER BY Inventory_Turnover DESC;
+
+
+SELECT
+    &quot;Product Category&quot;,
+    ROUND(AVG(&quot;Profit Margin&quot;), 2) AS Average_Profit_Margin,
+    SUM(Profit) AS Total_Profit
+FROM Orders
+GROUP BY &quot;Product Category&quot;
+ORDER BY Average_Profit_Margin DESC;
+
+
+SELECT name 
+FROM sqlite_master 
+WHERE type='table';
+
+PRAGMA TABLE_info(orders);
+
+
+.quit</sql><current_tab id="0"/></tab_sql></sqlb_project>
