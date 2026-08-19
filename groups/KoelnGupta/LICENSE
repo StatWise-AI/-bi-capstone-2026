@@ -1,0 +1,20 @@
+Educational Use License
+========================
+
+This repository is provided for educational use as part of a Business
+Intelligence capstone course at SRH University of Applied Sciences.
+
+Code in this repository (src/, app/, and supporting scripts) may be reused,
+modified, and extended freely by enrolled students for coursework purposes.
+
+The dataset referenced by this project (DataCo Smart Supply Chain for Big Data
+Analysis) is not owned by the authors of this repository. It remains subject to
+its original license from Mendeley Data:
+
+    Constante, Fabian; Silva, Fernando; Pereira, Antonio (2019),
+    "DataCo SMART SUPPLY CHAIN FOR BIG DATA ANALYSIS", Mendeley Data, V5,
+    doi: 10.17632/8gx2fvg2k6.5
+
+All rights to the raw data remain with the original authors. This project does
+not redistribute the raw dataset within the git repository itself; it is fetched
+at setup time via `src/download_data.py` from its public source.
