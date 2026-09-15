@@ -1,0 +1,789 @@
+<title>Stock Dynamics - Presentation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+  :root {
+    color-scheme: light;
+    --ground:      #f7f4ee;
+    --surface:     #fffdf9;
+    --surface-2:   #f0ead9;
+    --ink:         #171512;
+    --ink-soft:    #37332c;
+    --ink-muted:   #6b6459;
+    --line:        #e4ddd0;
+    --accent:      #c96a17;
+    --accent-ink:  #ffffff;
+    --accent-soft: #f3ddc0;
+
+    --risk-high:   #d03b3b;
+    --risk-med:    #d98c00;
+    --risk-low:    #0ca30c;
+
+    --series-1: #2a78d6; /* blue */
+    --series-2: #eb6834; /* orange */
+    --series-3: #1baf7a; /* aqua */
+    --series-4: #eda100; /* yellow */
+    --series-5: #e87ba4; /* magenta */
+    --series-6: #008300; /* green */
+    --series-7: #4a3aa7; /* violet */
+    --series-8: #e34948; /* red */
+
+    --seq-250: #86b6ef;
+    --seq-450: #2a78d6;
+    --seq-650: #104281;
+
+    --shadow: 0 1px 2px rgba(23,21,18,0.06), 0 8px 24px rgba(23,21,18,0.08);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --ground:      #14120e;
+      --surface:     #1d1a15;
+      --surface-2:   #26221b;
+      --ink:         #f5f1e8;
+      --ink-soft:    #d7d0c2;
+      --ink-muted:   #a39c8e;
+      --line:        #332e25;
+      --accent:      #e8933a;
+      --accent-ink:  #17140f;
+      --accent-soft: #3a2c17;
+
+      --risk-high:   #e66767;
+      --risk-med:    #e0a530;
+      --risk-low:    #35c235;
+
+      --series-1: #3987e5;
+      --series-2: #d95926;
+      --series-3: #199e70;
+      --series-4: #c98500;
+      --series-5: #d55181;
+      --series-6: #29a329;
+      --series-7: #9085e9;
+      --series-8: #e66767;
+
+      --seq-250: #184f95;
+      --seq-450: #3987e5;
+      --seq-650: #9ec5f4;
+
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px rgba(0,0,0,0.45);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground:      #14120e;
+    --surface:     #1d1a15;
+    --surface-2:   #26221b;
+    --ink:         #f5f1e8;
+    --ink-soft:    #d7d0c2;
+    --ink-muted:   #a39c8e;
+    --line:        #332e25;
+    --accent:      #e8933a;
+    --accent-ink:  #17140f;
+    --accent-soft: #3a2c17;
+    --risk-high:   #e66767;
+    --risk-med:    #e0a530;
+    --risk-low:    #35c235;
+    --series-1: #3987e5; --series-2: #d95926; --series-3: #199e70; --series-4: #c98500;
+    --series-5: #d55181; --series-6: #29a329; --series-7: #9085e9; --series-8: #e66767;
+    --seq-250: #184f95; --seq-450: #3987e5; --seq-650: #9ec5f4;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 28px rgba(0,0,0,0.45);
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --ground: #f7f4ee; --surface:#fffdf9; --surface-2:#f0ead9;
+    --ink:#171512; --ink-soft:#37332c; --ink-muted:#6b6459; --line:#e4ddd0;
+    --accent:#c96a17; --accent-ink:#ffffff; --accent-soft:#f3ddc0;
+    --risk-high:#d03b3b; --risk-med:#d98c00; --risk-low:#0ca30c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; height: 100%;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+  }
+
+  .deck {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  .slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding: clamp(28px, 5vw, 72px) clamp(24px, 8vw, 96px);
+    border-bottom: 1px solid var(--line);
+  }
+  .slide-inner { max-width: 1180px; margin: 0 auto; width: 100%; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 18px;
+  }
+  .eyebrow .num {
+    font-variant-numeric: tabular-nums;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0;
+  }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  h1 {
+    font-size: clamp(38px, 6vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.03;
+  }
+  h2 {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+  }
+  h3 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.005em;
+  }
+  p { line-height: 1.6; color: var(--ink-soft); margin: 0; }
+  .lede {
+    font-size: clamp(16px, 1.6vw, 19px);
+    max-width: 62ch;
+    color: var(--ink-soft);
+  }
+  .tabular { font-variant-numeric: tabular-nums; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.85fr) 1.15fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  @media (max-width: 860px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    padding: 22px 24px;
+  }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+    margin: 22px 0 8px;
+  }
+  .kpi {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .kpi .val {
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.05;
+  }
+  .kpi .lbl {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-top: 4px;
+    letter-spacing: 0.01em;
+  }
+  .kpi.status-high { border-left-color: var(--risk-high); }
+  .kpi.status-med  { border-left-color: var(--risk-med); }
+  .kpi.status-low  { border-left-color: var(--risk-low); }
+
+  .barlist { display: flex; flex-direction: column; gap: 10px; }
+  .barlist .row { display: grid; grid-template-columns: 130px 1fr 56px; align-items: center; gap: 10px; }
+  .barlist .row .name { font-size: 13.5px; color: var(--ink-soft); }
+  .barlist .track { background: var(--surface-2); border-radius: 3px; height: 14px; overflow: hidden; }
+  .barlist .fill { height: 100%; border-radius: 3px; }
+  .barlist .row .value { font-size: 13px; text-align: right; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 14px; }
+  .legend .item { display: flex; align-items: center; gap: 7px; font-size: 12.5px; color: var(--ink-soft); }
+  .legend .swatch { width: 11px; height: 11px; border-radius: 2px; flex: none; }
+
+  table.datatable { border-collapse: collapse; width: 100%; font-size: 13px; }
+  table.datatable th, table.datatable td {
+    padding: 7px 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  table.datatable th:first-child, table.datatable td:first-child { text-align: left; font-variant-numeric: normal; }
+  table.datatable th {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--ink-muted); font-weight: 700; border-bottom: 1px solid var(--ink-muted);
+  }
+  table.datatable tr.total td { font-weight: 800; border-top: 1px solid var(--ink-muted); border-bottom: none; }
+  .table-wrap { overflow-x: auto; }
+  .cellbar { position: relative; }
+  .cellbar .bg { position: absolute; inset: 2px 4px; background: var(--surface-2); border-radius: 2px; z-index: 0; }
+  .cellbar .fg { position: relative; z-index: 1; }
+
+  .chip { display:inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 700; }
+  .chip.high { background: color-mix(in srgb, var(--risk-high) 16%, transparent); color: var(--risk-high); }
+  .chip.med  { background: color-mix(in srgb, var(--risk-med) 16%, transparent);  color: var(--risk-med); }
+  .chip.low  { background: color-mix(in srgb, var(--risk-low) 16%, transparent);  color: var(--risk-low); }
+
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 18px;
+    font-size: 15.5px;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .foot-tag {
+    margin-top: 22px;
+    font-size: 11.5px; color: var(--ink-muted); letter-spacing: 0.04em;
+    max-width: 62ch;
+  }
+
+  /* nav rail */
+  .rail {
+    position: fixed; right: 18px; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 9px; z-index: 50;
+  }
+  .rail button {
+    width: 9px; height: 9px; border-radius: 50%; border: 1px solid var(--ink-muted);
+    background: transparent; padding: 0; cursor: pointer; opacity: 0.55;
+  }
+  .rail button.active { background: var(--accent); border-color: var(--accent); opacity: 1; width: 11px; height: 11px; }
+
+  .navbar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px clamp(16px, 4vw, 40px);
+    background: linear-gradient(to top, var(--ground) 55%, transparent);
+    pointer-events: none;
+  }
+  .navbar * { pointer-events: auto; }
+  .navbtn {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface); border: 1px solid var(--line); color: var(--ink);
+    padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600;
+    cursor: pointer; box-shadow: var(--shadow);
+  }
+  .navbtn:disabled { opacity: 0.35; cursor: default; }
+  .navbtn:focus-visible, .rail button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .counter { font-size: 12px; color: var(--ink-muted); font-variant-numeric: tabular-nums; letter-spacing: 0.03em; }
+
+  .title-slide {
+    justify-content: center; align-items: flex-start;
+    background:
+      repeating-linear-gradient(90deg, transparent 0 78px, var(--line) 78px 79px),
+      var(--ground);
+  }
+  .title-slide .mark {
+    font-size: 12.5px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--ink-muted); margin-bottom: 26px;
+  }
+  .title-slide .mark b { color: var(--accent); }
+  .title-slide .sub { margin-top: 20px; }
+  .title-tiles { display:flex; gap: 10px; margin-top: 40px; flex-wrap: wrap; }
+  .title-tiles span {
+    font-size: 12px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--ink-muted);
+  }
+
+  .gauge-wrap { display:flex; flex-direction: column; align-items: center; }
+  .gauge-num { font-size: 30px; font-weight: 800; margin-top: -8px; font-variant-numeric: tabular-nums; }
+  .gauge-cap { font-size: 12px; color: var(--ink-muted); margin-top: 2px; }
+
+  .two-col-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .two-col-cards { grid-template-columns: 1fr; } }
+
+  .divider-num {
+    position: absolute; right: clamp(20px,6vw,60px); top: 50%; transform: translateY(-50%);
+    font-size: clamp(80px, 14vw, 220px); font-weight: 800; color: var(--surface-2);
+    line-height: 1; z-index: 0; user-select: none;
+  }
+  .z1 { position: relative; z-index: 1; }
+</style>
+
+<div class="deck" id="deck">
+
+  <!-- 00: TITLE -->
+  <section class="slide title-slide" id="s0">
+    <div class="slide-inner z1">
+      <div class="mark">Stock Dynamics Dashboard <b>&middot;</b> Project Presentation</div>
+      <h1>Turning 500 SKUs of<br />warehouse data into<br />a same-day decision.</h1>
+      <p class="lede sub">A Power BI dashboard, a semantic model of 23 DAX measures, and a machine
+      learning notebook, built on top of one distribution center's inventory data to answer a single
+      question: which products are about to run out, and what should be done about it first.</p>
+      <div class="title-tiles">
+        <span>500 SKUs</span><span>8 categories</span><span>50 suppliers</span>
+        <span>4 report pages</span><span>23 DAX measures</span><span>1 ML notebook</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 01: THE PROBLEM -->
+  <section class="slide" id="s1">
+    <div class="divider-num">01</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">01</span> The Business Problem</div>
+      <div class="grid-2">
+        <div>
+          <h2>Two opposite failures, at the same time.</h2>
+          <p class="lede" style="margin-top:14px;">A regional distribution center runs 500 products
+          across 8 categories. Some run out and cost the business sales. Others sit overstocked and
+          tie up cash and shelf space. Both are happening at once, and nobody could see, product by
+          product, which problem they were looking at.</p>
+        </div>
+        <div class="card">
+          <h3>What the business asked for</h3>
+          <p style="margin-top:10px;">Classify every product as <b style="color:var(--risk-high)">High</b>,
+          <b style="color:var(--risk-med)">Medium</b>, or <b style="color:var(--risk-low)">Low</b> risk of
+          stocking out, then use that label to decide:</p>
+          <div class="quote" style="margin-top:14px;">"Which products to reorder first, which suppliers
+          to renegotiate with, and where to hold more safety stock."</div>
+          <p style="margin-top:14px; font-size: 13.5px;">Source: the dataset's own
+          <span class="tabular">Use_Case_Documentation</span> sheet, business goal statement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02: THE DATA -->
+  <section class="slide" id="s2">
+    <div class="divider-num">02</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">02</span> The Data</div>
+      <h2>28 columns, 500 rows, six families of information.</h2>
+      <div class="two-col-cards" style="margin-top: 26px;">
+        <div class="card">
+          <h3>Stock_Data (the working sheet)</h3>
+          <div class="barlist" style="margin-top:14px;">
+            <div class="row"><span class="name">Product info</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">5 cols</span></div>
+            <div class="row"><span class="name">Stock levels</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">5 cols</span></div>
+            <div class="row"><span class="name">Demand patterns</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">5 cols</span></div>
+            <div class="row"><span class="name">Historical perf.</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">5 cols</span></div>
+            <div class="row"><span class="name">Operational</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">5 cols</span></div>
+            <div class="row"><span class="name">Risk indicators</span><div class="track"><div class="fill" style="width:60%;background:var(--series-1)"></div></div><span class="value">3 cols</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Use_Case_Documentation (the brief)</h3>
+          <p style="margin-top: 10px;">A second sheet in the same workbook, written like a project
+          brief: the business goal, the machine learning problem statement, a decision framework with
+          concrete thresholds, and success metrics. Every measure and rule in this project traces back
+          to a line in this sheet, not an assumption.</p>
+          <div class="legend" style="margin-top:16px;">
+            <div class="item"><span class="swatch" style="background:var(--risk-high)"></span>194 High Risk</div>
+            <div class="item"><span class="swatch" style="background:var(--risk-med)"></span>177 Medium Risk</div>
+            <div class="item"><span class="swatch" style="background:var(--risk-low)"></span>129 Low Risk</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03: MEASURES / DAX -->
+  <section class="slide" id="s3">
+    <div class="divider-num">03</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">03</span> The Semantic Model</div>
+      <h2>23 DAX measures, one calculated column.</h2>
+      <p class="lede" style="margin-top:10px;">Power BI measures are reusable formulas: write the
+      calculation once, and every chart, card, and slicer recalculates it instantly. Three families
+      cover everything the dashboard shows.</p>
+      <div class="two-col-cards" style="margin-top: 22px; grid-template-columns: repeat(3, 1fr);">
+        <div class="card">
+          <h3 style="color:var(--risk-high)">Risk &amp; Action</h3>
+          <p style="margin-top:8px; font-size:13.5px;"><b>High / Medium / Low Risk SKUs</b> - count
+          of products in each tier.<br /><br />
+          <b>Top Priority Escalations</b> = High Risk AND top-value (ABC "A") products.<br /><br />
+          <b>Below Reorder Point</b> = CALCULATE(COUNTROWS, Stock &lt; Reorder Point).</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--series-1)">Financial &amp; Operational</h3>
+          <p style="margin-top:8px; font-size:13.5px;"><b>Total Stock Value</b> = SUMX(stock &times; unit
+          cost) across all 500 SKUs.<br /><br />
+          <b>Total Storage Space</b>, <b>Avg Holding Cost %</b>, <b>Avg Turnover Rate</b> - the cost
+          side of carrying inventory.</p>
+        </div>
+        <div class="card">
+          <h3 style="color:var(--series-3)">Supplier &amp; Demand</h3>
+          <p style="margin-top:8px; font-size:13.5px;"><b>Root Cause Review SKUs</b> = more than 5
+          stockouts last year.<br /><br />
+          <b>Secondary Supplier Candidates</b> = lead time &gt; 30 days AND above-average demand.<br /><br />
+          <b>Reorder_Gap</b> (column) = Reorder Point minus Current Stock.</p>
+        </div>
+      </div>
+      <p style="margin-top:18px; font-size:13px; color:var(--ink-muted);">Deliberate exclusion: the
+      pre-computed <span class="tabular">Risk_Score</span> and
+      <span class="tabular">Current_Stock_Coverage_Days</span> columns were kept out of anything that
+      predicts risk, since the documentation implies Risk_Score already encodes the answer - using it
+      as an input would be circular.</p>
+    </div>
+  </section>
+
+  <!-- 04: PAGE 1 OVERVIEW -->
+  <section class="slide" id="s4">
+    <div class="divider-num">04</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">04</span> Report Page 1 &middot; Overview</div>
+      <h2>The five-second answer: how healthy is the catalog right now.</h2>
+      <div class="kpi-row">
+        <div class="kpi"><div class="val tabular">500</div><div class="lbl">Total SKUs</div></div>
+        <div class="kpi"><div class="val tabular">85.2</div><div class="lbl">Avg Service Level %</div></div>
+        <div class="kpi"><div class="val tabular">49.4</div><div class="lbl">Avg Risk Score</div></div>
+        <div class="kpi status-high"><div class="val tabular">204</div><div class="lbl">Below Reorder Point</div></div>
+      </div>
+      <div class="two-col-cards" style="margin-top:8px;">
+        <div class="card">
+          <h3>SKUs by Stockout Risk Category</h3>
+          <div style="display:flex; align-items:center; gap:22px; margin-top:14px;">
+            <svg width="130" height="130" viewBox="0 0 42 42" role="img" aria-label="Donut chart of risk categories">
+              <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--surface-2)" stroke-width="6"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--risk-high)" stroke-width="6"
+                stroke-dasharray="38.8 61.2" stroke-dashoffset="0" transform="rotate(-90 21 21)"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--risk-med)" stroke-width="6"
+                stroke-dasharray="35.4 64.6" stroke-dashoffset="-38.8" transform="rotate(-90 21 21)"></circle>
+              <circle cx="21" cy="21" r="15.9" fill="transparent" stroke="var(--risk-low)" stroke-width="6"
+                stroke-dasharray="25.8 74.2" stroke-dashoffset="-74.2" transform="rotate(-90 21 21)"></circle>
+              <text x="21" y="20" text-anchor="middle" font-size="7" font-weight="800" fill="var(--ink)">500</text>
+              <text x="21" y="26.5" text-anchor="middle" font-size="3.6" fill="var(--ink-muted)">SKUs</text>
+            </svg>
+            <div class="legend" style="margin-top:0; flex-direction:column; gap:8px;">
+              <div class="item"><span class="swatch" style="background:var(--risk-high)"></span>High Risk - 194 (38.8%)</div>
+              <div class="item"><span class="swatch" style="background:var(--risk-med)"></span>Medium Risk - 177 (35.4%)</div>
+              <div class="item"><span class="swatch" style="background:var(--risk-low)"></span>Low Risk - 129 (25.8%)</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Avg Risk Score by Product Category</h3>
+          <div class="barlist" style="margin-top:14px;">
+            <div class="row"><span class="name">Electronics</span><div class="track"><div class="fill" style="width:100%;background:var(--series-1)"></div></div><span class="value">51.9</span></div>
+            <div class="row"><span class="name">Books &amp; Media</span><div class="track"><div class="fill" style="width:99%;background:var(--series-1)"></div></div><span class="value">51.4</span></div>
+            <div class="row"><span class="name">Automotive</span><div class="track"><div class="fill" style="width:97%;background:var(--series-1)"></div></div><span class="value">50.5</span></div>
+            <div class="row"><span class="name">Health &amp; Beauty</span><div class="track"><div class="fill" style="width:97%;background:var(--series-1)"></div></div><span class="value">50.3</span></div>
+            <div class="row"><span class="name">Sports</span><div class="track"><div class="fill" style="width:95%;background:var(--series-1)"></div></div><span class="value">49.4</span></div>
+            <div class="row"><span class="name">Home &amp; Garden</span><div class="track"><div class="fill" style="width:93%;background:var(--series-1)"></div></div><span class="value">48.3</span></div>
+            <div class="row"><span class="name">Food &amp; Beverage</span><div class="track"><div class="fill" style="width:92%;background:var(--series-1)"></div></div><span class="value">48.0</span></div>
+            <div class="row"><span class="name">Apparel</span><div class="track"><div class="fill" style="width:85%;background:var(--series-1)"></div></div><span class="value">43.9</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="foot-tag">Also on this page: SKU count by ABC tier, average coverage days by warehouse
+      zone, and Product Category / Warehouse Zone slicers that cross-filter every chart.</p>
+    </div>
+  </section>
+
+  <!-- 05: PAGE 2 RISK & ACTION -->
+  <section class="slide" id="s5">
+    <div class="divider-num">05</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">05</span> Report Page 2 &middot; Risk &amp; Action Center</div>
+      <h2>From "who is at risk" to "who do I call first."</h2>
+      <div class="kpi-row">
+        <div class="kpi status-high"><div class="val tabular">194</div><div class="lbl">High Risk SKUs</div></div>
+        <div class="kpi status-high"><div class="val tabular">30</div><div class="lbl">Top Priority Escalations</div></div>
+        <div class="kpi status-low"><div class="val tabular">0</div><div class="lbl">Excess Inventory SKUs</div></div>
+        <div class="kpi"><div class="val tabular">26.7</div><div class="lbl">Avg Coverage Days</div></div>
+        <div class="kpi status-med"><div class="val tabular">6.6</div><div class="lbl">Avg Stockout Incidents</div></div>
+      </div>
+      <div class="card" style="margin-top:8px;">
+        <h3>Action list - every SKU, sorted by Risk Score (highest first)</h3>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="datatable">
+            <thead><tr><th>SKU</th><th>Category</th><th>ABC</th><th>Zone</th><th>Risk</th><th>Coverage (days)</th><th>Lead time</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>P0279</td><td>Electronics</td><td>C</td><td>C</td><td>95</td><td>2.97</td><td>43</td><td><span class="chip high">High Risk</span></td></tr>
+              <tr><td>P0139</td><td>Health &amp; Beauty</td><td>C</td><td>C</td><td>90</td><td>9.93</td><td>45</td><td><span class="chip high">High Risk</span></td></tr>
+              <tr><td>P0150</td><td>Books &amp; Media</td><td>C</td><td>C</td><td>90</td><td>22.68</td><td>45</td><td><span class="chip high">High Risk</span></td></tr>
+              <tr><td>P0230</td><td>Automotive</td><td>C</td><td>C</td><td>90</td><td>20.29</td><td>45</td><td><span class="chip high">High Risk</span></td></tr>
+              <tr><td>&hellip;</td><td colspan="7" style="text-align:left; color:var(--ink-muted); font-style:italic;">all 500 rows, live-sorted, filterable by Risk Category and ABC Class</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="foot-tag">Design choice: the table is sorted, not filtered to "High Risk only" - so the
+      slicers stay in charge, and dropping the threshold to Medium never hides a row that matters.</p>
+    </div>
+  </section>
+
+  <!-- 06: PAGE 3 INVENTORY HEALTH -->
+  <section class="slide" id="s6">
+    <div class="divider-num">06</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">06</span> Report Page 3 &middot; Inventory Health</div>
+      <h2>What the risk is actually costing, and where the gaps sit.</h2>
+      <div class="grid-2" style="align-items:flex-start; margin-top: 10px;">
+        <div class="card" style="text-align:center;">
+          <h3>Service Level vs. Target</h3>
+          <div class="gauge-wrap" style="margin-top:10px;">
+            <svg width="180" height="104" viewBox="0 0 180 104">
+              <path d="M 12 96 A 78 78 0 0 1 168 96" fill="none" stroke="var(--surface-2)" stroke-width="14" stroke-linecap="round"></path>
+              <path d="M 12 96 A 78 78 0 0 1 168 96" fill="none" stroke="var(--risk-med)" stroke-width="14" stroke-linecap="round"
+                stroke-dasharray="208.8 245" stroke-dashoffset="0"></path>
+              <line x1="90" y1="96" x2="90" y2="20" stroke="var(--ink-muted)" stroke-width="2" stroke-dasharray="2 2"
+                transform="rotate(86.4 90 96)"></line>
+            </svg>
+            <div class="gauge-num">85.2</div>
+            <div class="gauge-cap">against a target of 98.0</div>
+          </div>
+        </div>
+        <div>
+          <div class="kpi-row" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="kpi"><div class="val tabular">$78M</div><div class="lbl">Total Stock Value</div></div>
+            <div class="kpi"><div class="val tabular">16.5</div><div class="lbl">Avg Turnover Rate</div></div>
+            <div class="kpi"><div class="val tabular">8,345</div><div class="lbl">Storage Space (sq ft)</div></div>
+            <div class="kpi"><div class="val tabular">25.1</div><div class="lbl">Avg Holding Cost %</div></div>
+          </div>
+          <p style="margin-top:16px; font-size:14px;">Two drill-down tables sit below these cards:
+          <b>Below Reorder Point</b>, sorted by how far under the trigger a product is, and
+          <b>Excess Inventory</b>, sorted by stock coverage days - the two ends of the same problem,
+          one page apart.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07: PAGE 4 SUPPLIER & DEMAND -->
+  <section class="slide" id="s7">
+    <div class="divider-num">07</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">07</span> Report Page 4 &middot; Supplier &amp; Demand Insights</div>
+      <h2>Tracing risk back to its source: demand, and the supplier behind it.</h2>
+      <div class="kpi-row">
+        <div class="kpi status-high"><div class="val tabular">245</div><div class="lbl">Root Cause Review SKUs (&gt;5 stockouts/yr)</div></div>
+        <div class="kpi status-med"><div class="val tabular">54</div><div class="lbl">Secondary Supplier Candidates</div></div>
+        <div class="kpi"><div class="val tabular">22.9</div><div class="lbl">Avg Lead Time (days)</div></div>
+      </div>
+      <div class="card" style="margin-top:10px;">
+        <h3>Demand &amp; risk by category</h3>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table class="datatable">
+            <thead><tr><th>Category</th><th>Avg Daily Demand</th><th>Demand Volatility</th><th>Avg Risk Score</th></tr></thead>
+            <tbody>
+              <tr><td>Apparel</td><td>58.9</td><td>18.8</td><td>43.9</td></tr>
+              <tr><td>Automotive</td><td>66.6</td><td>20.9</td><td>50.5</td></tr>
+              <tr><td>Books &amp; Media</td><td>67.4</td><td>20.5</td><td>51.4</td></tr>
+              <tr><td>Electronics</td><td>49.2</td><td>15.3</td><td>51.9</td></tr>
+              <tr><td>Food &amp; Beverage</td><td>54.3</td><td>16.3</td><td>48.0</td></tr>
+              <tr><td>Health &amp; Beauty</td><td>57.2</td><td>17.7</td><td>50.3</td></tr>
+              <tr><td>Home &amp; Garden</td><td>56.0</td><td>15.8</td><td>48.3</td></tr>
+              <tr><td>Sports</td><td>63.8</td><td>19.5</td><td>49.4</td></tr>
+              <tr class="total"><td>Total</td><td>58.9</td><td>17.9</td><td>49.4</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="foot-tag">A second matrix lists all 50 suppliers by SKU count, average risk, average
+      lead time, and high-risk SKU count - the view that turns "we have a demand problem" into
+      "we have a Supplier S010 problem."</p>
+    </div>
+  </section>
+
+  <!-- 08: DECISION RULES -->
+  <section class="slide" id="s8">
+    <div class="divider-num">08</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">08</span> Decision Rules We Encoded</div>
+      <h2>Every threshold on the dashboard came from the brief, not a guess.</h2>
+      <div class="two-col-cards" style="margin-top:22px; grid-template-columns: repeat(3,1fr);">
+        <div class="card">
+          <span class="chip high">Risk Score &ge; 60</span>
+          <p style="margin-top:12px; font-size:13.5px;">Immediate action: emergency reorder, safety
+          stock up 50%, monitored daily.</p>
+        </div>
+        <div class="card">
+          <span class="chip med">35 &le; Risk Score &lt; 60</span>
+          <p style="margin-top:12px; font-size:13.5px;">Proactive management: standard reorder
+          schedule, reviewed weekly.</p>
+        </div>
+        <div class="card">
+          <span class="chip low">Risk Score &lt; 35</span>
+          <p style="margin-top:12px; font-size:13.5px;">Routine operations: normal process, reviewed
+          monthly.</p>
+        </div>
+      </div>
+      <div class="two-col-cards" style="margin-top:16px; grid-template-columns: repeat(3,1fr);">
+        <div class="card"><h3 style="font-size:15px;">High Risk + ABC "A"</h3><p style="margin-top:8px;font-size:13px;">Escalated as top priority. <b>30 SKUs</b> qualify today.</p></div>
+        <div class="card"><h3 style="font-size:15px;">&gt;5 stockouts last year</h3><p style="margin-top:8px;font-size:13px;">Flagged for root cause review. <b>245 SKUs</b> qualify today.</p></div>
+        <div class="card"><h3 style="font-size:15px;">Lead time &gt;30 days + high demand</h3><p style="margin-top:8px;font-size:13px;">Flagged for a second supplier. <b>54 SKUs</b> qualify today.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09: ML NOTEBOOK -->
+  <section class="slide" id="s9">
+    <div class="divider-num">09</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">09</span> Bonus &middot; Machine Learning Validation</div>
+      <h2>Could a model actually predict the risk label the dashboard reports?</h2>
+      <p class="lede" style="margin-top:10px;">A companion notebook (runnable in Google Colab) trains
+      four classifiers on the 25 business features the brief specifies, deliberately holding out
+      Risk_Score to avoid teaching the model the answer.</p>
+      <div class="grid-2" style="margin-top:20px; align-items:flex-start;">
+        <div class="card">
+          <h3>Cross-validation accuracy</h3>
+          <div class="barlist" style="margin-top:14px;">
+            <div class="row"><span class="name">XGBoost</span><div class="track"><div class="fill" style="width:80%;background:var(--ink-muted)"></div></div><span class="value">80.3%</span></div>
+            <div class="row"><span class="name">Logistic Regr.</span><div class="track"><div class="fill" style="width:79%;background:var(--ink-muted)"></div></div><span class="value">79.4%</span></div>
+            <div class="row"><span class="name">Decision Tree</span><div class="track"><div class="fill" style="width:79%;background:var(--ink-muted)"></div></div><span class="value">79.1%</span></div>
+            <div class="row"><span class="name">Random Forest*</span><div class="track"><div class="fill" style="width:77%;background:var(--accent)"></div></div><span class="value">76.6%</span></div>
+          </div>
+          <p style="margin-top:10px; font-size:12px; color:var(--ink-muted);">*tuned further with GridSearchCV and carried forward as the final model</p>
+        </div>
+        <div class="card">
+          <h3>Test-set result vs. the brief's own targets</h3>
+          <table class="datatable" style="margin-top:12px;">
+            <thead><tr><th>Metric</th><th>Target</th><th>Achieved</th><th>Met?</th></tr></thead>
+            <tbody>
+              <tr><td>Overall accuracy</td><td>&gt; 85%</td><td>80.7%</td><td><span class="chip high">No</span></td></tr>
+              <tr><td>High Risk precision</td><td>&gt; 80%</td><td>89.7%</td><td><span class="chip low">Yes</span></td></tr>
+              <tr><td>High Risk recall</td><td>&gt; 90%</td><td>89.7%</td><td><span class="chip med">Narrowly no</span></td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top:12px; font-size:13px;">Medium Risk is the hardest class to separate
+          (72.9% F1) - the honest finding is that the model is very good at catching the highest-stakes
+          case, even where its overall accuracy falls short.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10: THE STORY -->
+  <section class="slide" id="s10">
+    <div class="divider-num">10</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">10</span> The Story The Data Tells</div>
+      <h2>Four pages, one narrative arc.</h2>
+      <div class="two-col-cards" style="margin-top:24px; grid-template-columns: repeat(4,1fr); gap:14px;">
+        <div class="card"><div style="font-size:12px;color:var(--accent);font-weight:700;">OVERVIEW</div><p style="margin-top:8px;font-size:13.5px;">38.8% of the catalog is already High Risk, and it isn't evenly spread across categories.</p></div>
+        <div class="card"><div style="font-size:12px;color:var(--accent);font-weight:700;">RISK &amp; ACTION</div><p style="margin-top:8px;font-size:13.5px;">30 of those are also top-value stock - the list that should be worked first, today.</p></div>
+        <div class="card"><div style="font-size:12px;color:var(--accent);font-weight:700;">INVENTORY HEALTH</div><p style="margin-top:8px;font-size:13.5px;">Service level sits 12.8 points under target, while excess stock is, right now, not the problem.</p></div>
+        <div class="card"><div style="font-size:12px;color:var(--accent);font-weight:700;">SUPPLIER &amp; DEMAND</div><p style="margin-top:8px;font-size:13.5px;">245 SKUs have repeat stockouts, and 54 are tied to slow suppliers carrying strong demand.</p></div>
+      </div>
+      <div class="quote" style="margin-top:26px; font-size:17px;">The four pages don't repeat one
+      chart four ways - each one answers a different question a manager would ask next: what's wrong,
+      what do I do, what's it costing, and why is it happening.</div>
+    </div>
+  </section>
+
+  <!-- 11: INTENDED VS IMPLEMENTED -->
+  <section class="slide" id="s11">
+    <div class="divider-num">11</div>
+    <div class="slide-inner z1">
+      <div class="eyebrow"><span class="num">11</span> Intended vs. Implemented</div>
+      <h2>Checked against the brief, item by item.</h2>
+      <div class="table-wrap" style="margin-top:20px;">
+        <table class="datatable">
+          <thead><tr><th style="text-align:left;">Goal from the brief</th><th style="text-align:left;">Where it lives</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td style="text-align:left;">Classify products by stockout risk</td><td style="text-align:left;">Page 1 donut, Page 2 action list</td><td><span class="chip low">Done</span></td></tr>
+            <tr><td style="text-align:left;">Prioritize reorder decisions</td><td style="text-align:left;">Page 2 / Page 3 sorted tables</td><td><span class="chip low">Done</span></td></tr>
+            <tr><td style="text-align:left;">Negotiate lead times with suppliers</td><td style="text-align:left;">Page 4 supplier matrix</td><td><span class="chip low">Done</span></td></tr>
+            <tr><td style="text-align:left;">Optimize warehouse space</td><td style="text-align:left;">Page 3 storage &amp; zone cards</td><td><span class="chip low">Done</span></td></tr>
+            <tr><td style="text-align:left;">Service level 85 to 98%+</td><td style="text-align:left;">Page 3 gauge (tracked, not yet closed)</td><td><span class="chip med">Tracked</span></td></tr>
+            <tr><td style="text-align:left;">Predictive ML classification</td><td style="text-align:left;">Colab notebook, 80.7% accuracy</td><td><span class="chip med">Partial</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="foot-tag">"Tracked" and "Partial" are reported as such deliberately - the brief asked for
+      visibility into these gaps, not for them to be hidden.</p>
+    </div>
+  </section>
+
+  <!-- 12: CLOSING -->
+  <section class="slide title-slide" id="s12">
+    <div class="slide-inner z1">
+      <div class="mark">Thank You</div>
+      <h1 style="font-size:clamp(32px,5vw,52px);">Questions, or a live walk<br />through any page.</h1>
+      <p class="lede sub">Built with Power BI Desktop, a hand-authored PBIR report and TMDL semantic
+      model, and a scikit-learn / XGBoost notebook, all driven from one Excel workbook.</p>
+      <div class="title-tiles">
+        <span>Dashboard_Documentation.md</span><span>Stockout_Risk_Classification.ipynb</span><span>StockDynamics_Dashboard.pbix</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="rail" id="rail"></div>
+<div class="navbar">
+  <button class="navbtn" id="prevBtn">&larr; Prev</button>
+  <span class="counter" id="counter">1 / 13</span>
+  <button class="navbtn" id="nextBtn">Next &rarr;</button>
+</div>
+
+<script>
+  const deck = document.getElementById('deck');
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const rail = document.getElementById('rail');
+  const counter = document.getElementById('counter');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  slides.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    b.addEventListener('click', () => s.scrollIntoView({ behavior: 'smooth' }));
+    rail.appendChild(b);
+  });
+  const dots = Array.from(rail.children);
+
+  function currentIndex() {
+    let idx = 0, best = Infinity;
+    slides.forEach((s, i) => {
+      const d = Math.abs(s.getBoundingClientRect().top);
+      if (d < best) { best = d; idx = i; }
+    });
+    return idx;
+  }
+
+  function refresh() {
+    const idx = currentIndex();
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+    counter.textContent = (idx + 1) + ' / ' + slides.length;
+    prevBtn.disabled = idx === 0;
+    nextBtn.disabled = idx === slides.length - 1;
+  }
+
+  function go(delta) {
+    const idx = Math.min(slides.length - 1, Math.max(0, currentIndex() + delta));
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+  }
+
+  prevBtn.addEventListener('click', () => go(-1));
+  nextBtn.addEventListener('click', () => go(1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'PageDown') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(-1); }
+    if (e.key === 'Home') { e.preventDefault(); slides[0].scrollIntoView(); }
+    if (e.key === 'End') { e.preventDefault(); slides[slides.length - 1].scrollIntoView(); }
+  });
+  deck.addEventListener('scroll', () => { window.requestAnimationFrame(refresh); }, { passive: true });
+  refresh();
+</script>
